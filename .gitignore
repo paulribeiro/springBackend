@@ -33,19 +33,19 @@ build/
 ### deployment files ###
 /yaml
 
-# Compiled class file
+### Compiled class file
 *.class
 
-# Log file
+### Log file
 *.log
 
-# BlueJ files
+### BlueJ files
 *.ctxt
 
-# Mobile Tools for Java (J2ME)
+### Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+### Package Files #
 *.jar
 *.war
 *.nar
@@ -54,3 +54,7 @@ build/
 *.tar.gz
 *.rar
 
+### maven
+.mvn
+mvnw
+mvnw.cmd
