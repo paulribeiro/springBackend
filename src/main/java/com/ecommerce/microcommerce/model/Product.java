@@ -24,7 +24,6 @@ public class Product {
     @Min(value = 1)
     private int prix;
 
-
     @JsonIgnore
     private int prixAchat;
 

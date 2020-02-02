@@ -1,5 +1,7 @@
 package com.ecommerce.microcommerce.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,9 +14,11 @@ public class Experience {
     private Integer experienceId;
 
     @ManyToOne
+    @JoinColumn(name = "ORGANISATION_ID_FK", referencedColumnName = "organisationId")
     private Organisation organisation;
 
     @ManyToOne
+    @JoinColumn(name = "LOCATION_ID_FK", referencedColumnName = "locationId")
     private Location location;
 
     private Date startDate;
@@ -22,6 +26,7 @@ public class Experience {
     private Date endDate;
 
     @Column(nullable = false)
+    @Length(max=2000)
     private String description;
 
     @Enumerated(EnumType.STRING)

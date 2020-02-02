@@ -1,10 +1,9 @@
 package com.ecommerce.microcommerce.model;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
-@Table(name = "RES_EXPERIENCE")
+@Table(name = "RES_COMPETENCE")
 public class Competence {
 
     @Id

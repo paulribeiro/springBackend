@@ -15,6 +15,7 @@ public class Formation {
     private String formationTitle;
 
     @ManyToOne
+    @JoinColumn(name = "LOCATION_ID_FK", referencedColumnName = "locationId")
     private Location location;
 
     private Date startDate;

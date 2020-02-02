@@ -17,6 +17,7 @@ public class Organisation {
     private String organisationName;
 
     @Length(min=1, message = "L'adresse du logo doit comporter au moins 1 caractère.")
+    @Length(max=2000)
     private String logoAddress;
 
     //constructeur par défaut
