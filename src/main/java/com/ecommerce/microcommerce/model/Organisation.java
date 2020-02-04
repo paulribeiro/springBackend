@@ -29,6 +29,10 @@ public class Organisation {
         this.logoAddress = logoAddress;
     }
 
+    public Organisation(Integer organisationId) {
+        this.organisationId = organisationId;
+    }
+
     public Integer getOrganisationId() {
         return organisationId;
     }

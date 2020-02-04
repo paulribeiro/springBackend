@@ -34,6 +34,10 @@ public class Location {
         this.country = country;
     }
 
+    public Location(Integer locationId) {
+        this.locationId = locationId;
+    }
+
     public Integer getLocationId() {
         return locationId;
     }
