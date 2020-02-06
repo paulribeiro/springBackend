@@ -1,6 +1,5 @@
-package com.ecommerce.microcommerce.interfaces;
+package com.ecommerce.microcommerce.Services;
 
-import com.ecommerce.microcommerce.model.Location;
 import com.ecommerce.microcommerce.model.Organisation;
 
 import java.util.List;
@@ -29,4 +28,12 @@ public interface IOrganisationService {
      * @return the organisation as it was saved.
      */
     Organisation postOrganisation(Organisation organisation);
+
+    /**
+     * Method used to modify an organisation.
+     *
+     * @param organisation : organisation to be modified
+     * @return the organisation as it was modified.
+     */
+    Organisation putOrganisation(Organisation organisation);
 }

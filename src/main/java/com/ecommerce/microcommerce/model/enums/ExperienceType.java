@@ -1,4 +1,4 @@
-package com.ecommerce.microcommerce.model;
+package com.ecommerce.microcommerce.model.enums;
 
 public enum ExperienceType {
     JOB,

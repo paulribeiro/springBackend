@@ -1,4 +1,4 @@
-package com.ecommerce.microcommerce.interfaces;
+package com.ecommerce.microcommerce.Services;
 
 import com.ecommerce.microcommerce.model.Product;
 

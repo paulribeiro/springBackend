@@ -1,30 +1,25 @@
-package com.ecommerce.microcommerce.model;
+package com.ecommerce.microcommerce.dto;
 
 import com.ecommerce.microcommerce.model.enums.CompetenceType;
 
-import javax.persistence.*;
+public class CompetenceDco {
 
-@Entity
-@Table(name = "RES_COMPETENCE")
-public class Competence {
-
-    @Id
-    @GeneratedValue
     private Integer competenceId;
 
     private Integer evaluation;
 
-    @Column(nullable = false)
     private String competenceTitle;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private CompetenceType competenceType;
 
-    public Competence() {
+    public CompetenceDco(Integer competenceId, Integer evaluation, String competenceTitle, CompetenceType competenceType) {
+        this.competenceId = competenceId;
+        this.evaluation = evaluation;
+        this.competenceTitle = competenceTitle;
+        this.competenceType = competenceType;
     }
 
-    public Competence(Integer evaluation, String competenceTitle, CompetenceType competenceType) {
+    public CompetenceDco(Integer evaluation, String competenceTitle, CompetenceType competenceType) {
         this.evaluation = evaluation;
         this.competenceTitle = competenceTitle;
         this.competenceType = competenceType;
@@ -34,8 +29,7 @@ public class Competence {
         return competenceId;
     }
 
-    public void setCompetenceId(Integer competenceId) {
-        this.competenceId = competenceId;
+    public CompetenceDco() {
     }
 
     public Integer getEvaluation() {
@@ -61,14 +55,4 @@ public class Competence {
     public void setCompetenceType(CompetenceType competenceType) {
         this.competenceType = competenceType;
     }
-
-    @Override
-    public String toString(){
-        return "Competence{"+
-                "competenceId=" + competenceId +
-                ", evaluation='"+ evaluation +
-                ", competenceTitle='"+ competenceTitle +
-                ", competenceType='"+ competenceType + '}';
-    }
-
 }

@@ -1,42 +1,41 @@
-package com.ecommerce.microcommerce.model;
+package com.ecommerce.microcommerce.dto;
 
 import com.ecommerce.microcommerce.model.enums.FormationType;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name = "RES_FORMATION")
-public class Formation {
+public class FormationDco {
 
-    @Id
-    @GeneratedValue
     private Integer formationId;
 
-    @Column(nullable = false)
     private String formationTitle;
 
-    @ManyToOne
-    @JoinColumn(name = "LOCATION_ID_FK", referencedColumnName = "locationId")
-    private Location location;
+    private Integer locationId;
 
     private Date startDate;
 
     private Date endDate;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private FormationType formationType;
 
-    public Formation() {
-    }
-
-    public Formation(String formationTitle, Location location, Date startDate, Date endDate, FormationType formationType) {
+    public FormationDco(Integer formationId, String formationTitle, Integer locationId, Date startDate, Date endDate, FormationType formationType) {
+        this.formationId = formationId;
         this.formationTitle = formationTitle;
-        this.location = location;
+        this.locationId = locationId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.formationType = formationType;
+    }
+
+    public FormationDco(String formationTitle, Integer locationId, Date startDate, Date endDate, FormationType formationType) {
+        this.formationTitle = formationTitle;
+        this.locationId = locationId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.formationType = formationType;
+    }
+
+    public FormationDco() {
     }
 
     public Integer getFormationId() {
@@ -51,12 +50,12 @@ public class Formation {
         this.formationTitle = formationTitle;
     }
 
-    public Location getLocation() {
-        return location;
+    public Integer getLocationId() {
+        return locationId;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLocationId(Integer locationId) {
+        this.locationId = locationId;
     }
 
     public Date getStartDate() {
@@ -82,15 +81,4 @@ public class Formation {
     public void setFormationType(FormationType formationType) {
         this.formationType = formationType;
     }
-
-    @Override
-    public String toString(){
-        return "Formation{"+
-                "formationId=" + formationId +
-                ", formationTitle='"+ formationTitle +
-                ", location='"+ location +
-                ", startDate='"+ startDate +
-                ", endDate='"+ endDate + '}';
-    }
-
 }

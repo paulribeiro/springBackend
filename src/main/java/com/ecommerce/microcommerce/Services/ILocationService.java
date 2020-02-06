@@ -1,6 +1,5 @@
-package com.ecommerce.microcommerce.interfaces;
+package com.ecommerce.microcommerce.Services;
 
-import com.ecommerce.microcommerce.model.Experience;
 import com.ecommerce.microcommerce.model.Location;
 
 import java.util.List;
@@ -29,4 +28,12 @@ public interface ILocationService {
      * @return the location as it was saved.
      */
     Location postLocation(Location location);
+
+    /**
+     * Method used to modify a location.
+     *
+     * @param location : location to be modified
+     * @return the location as it was modified.
+     */
+    Location putLocation(Location location);
 }

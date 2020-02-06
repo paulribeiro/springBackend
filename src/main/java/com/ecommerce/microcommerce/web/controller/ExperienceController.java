@@ -1,15 +1,13 @@
 package com.ecommerce.microcommerce.web.controller;
 
 import com.ecommerce.microcommerce.converter.ConverterHelper;
-import com.ecommerce.microcommerce.dto.ExperienceDto;
+import com.ecommerce.microcommerce.dto.ExperienceDco;
 import com.ecommerce.microcommerce.model.Experience;
-import com.ecommerce.microcommerce.model.Location;
-import com.ecommerce.microcommerce.web.service.ExperienceService;
-import com.ecommerce.microcommerce.web.service.LocationService;
-import com.ecommerce.microcommerce.web.service.OrganisationService;
+import com.ecommerce.microcommerce.web.serviceImpl.ExperienceServiceImpl;
+import com.ecommerce.microcommerce.web.serviceImpl.LocationServiceImpl;
+import com.ecommerce.microcommerce.web.serviceImpl.OrganisationServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,31 +20,31 @@ import java.util.List;
 @RestController
 public class ExperienceController {
 
-    private ExperienceService experienceService;
+    private ExperienceServiceImpl experienceServiceImpl;
 
-    private LocationService locationService;
+    private LocationServiceImpl locationServiceImpl;
 
-    private OrganisationService organisationService;
+    private OrganisationServiceImpl organisationServiceImpl;
 
     private ModelMapper modelMapper;
 
-    public ExperienceController(ExperienceService experienceService, OrganisationService organisationService, LocationService locationService, ModelMapper modelMapper) {
-        this.experienceService = experienceService;
-        this.organisationService = organisationService;
-        this.locationService = locationService;
+    public ExperienceController(ExperienceServiceImpl experienceServiceImpl, OrganisationServiceImpl organisationServiceImpl, LocationServiceImpl locationServiceImpl, ModelMapper modelMapper) {
+        this.experienceServiceImpl = experienceServiceImpl;
+        this.organisationServiceImpl = organisationServiceImpl;
+        this.locationServiceImpl = locationServiceImpl;
         this.modelMapper = modelMapper;
     }
 
     @ApiOperation(value = "Get all the experiences")
-    @GetMapping(value = "/Experience")
+    @GetMapping(value = "/Experiences")
     public ResponseEntity<List<Experience>> get() {
-        return ResponseEntity.ok().body(experienceService.getAllExperiences());
+        return ResponseEntity.ok().body(experienceServiceImpl.getAllExperiences());
     }
 
     @ApiOperation(value = "Post an experience")
-    @PostMapping(value = "/Experience")
-    public Experience post(@Valid @RequestBody ExperienceDto experienceDto) {
+    @PostMapping(value = "/Experiences")
+    public Experience post(@Valid @RequestBody ExperienceDco experienceDco) {
 
-        return experienceService.postExperience(new ConverterHelper().convertToEntity(experienceDto, modelMapper, locationService, organisationService));
+        return experienceServiceImpl.postExperience(new ConverterHelper().convertToEntity(experienceDco, modelMapper, locationServiceImpl, organisationServiceImpl));
     }
 }

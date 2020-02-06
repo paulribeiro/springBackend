@@ -2,7 +2,9 @@ package com.ecommerce.microcommerce.dto;
 
 import java.util.Date;
 
-public class ExperienceDto {
+public class ExperienceDco {
+
+    private Integer experienceId;
 
     private Integer organisationId;
 
@@ -15,6 +17,32 @@ public class ExperienceDto {
     private String description;
 
     private String experienceType;
+
+    public ExperienceDco(Integer experienceId, Integer organisationId, Integer locationId, Date startDate, Date endDate, String description, String experienceType) {
+        this.experienceId = experienceId;
+        this.organisationId = organisationId;
+        this.locationId = locationId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.description = description;
+        this.experienceType = experienceType;
+    }
+
+    public ExperienceDco(Integer organisationId, Integer locationId, Date startDate, Date endDate, String description, String experienceType) {
+        this.organisationId = organisationId;
+        this.locationId = locationId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.description = description;
+        this.experienceType = experienceType;
+    }
+
+    public ExperienceDco() {
+    }
+
+    public Integer getExperienceId() {
+        return experienceId;
+    }
 
     public String getExperienceType() {
         return experienceType;

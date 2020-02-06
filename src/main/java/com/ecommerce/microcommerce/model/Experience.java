@@ -1,5 +1,6 @@
 package com.ecommerce.microcommerce.model;
 
+import com.ecommerce.microcommerce.model.enums.ExperienceType;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;

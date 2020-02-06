@@ -1,4 +1,4 @@
-package com.ecommerce.microcommerce.web.service;
+package com.ecommerce.microcommerce.web.serviceImpl;
 
 import com.ecommerce.microcommerce.model.Product;
 import org.springframework.stereotype.Service;
