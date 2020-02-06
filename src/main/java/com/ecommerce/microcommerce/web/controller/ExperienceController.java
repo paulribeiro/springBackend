@@ -32,7 +32,7 @@ public class ExperienceController {
         this.experienceServiceImpl = experienceServiceImpl;
         this.organisationServiceImpl = organisationServiceImpl;
         this.locationServiceImpl = locationServiceImpl;
-        this.modelMapper = modelMapper; 
+        this.modelMapper = modelMapper;  
     }
 
     @ApiOperation(value = "Get all the experiences")
