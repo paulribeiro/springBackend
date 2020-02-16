@@ -1,6 +1,6 @@
 package com.ecommerce.microcommerce.dto;
 
-import com.ecommerce.microcommerce.model.enums.CompetenceType;
+import com.ecommerce.microcommerce.model.enums.CompetenceTypeEnum;
 
 public class CompetenceDco {
 
@@ -10,19 +10,20 @@ public class CompetenceDco {
 
     private String competenceTitle;
 
-    private CompetenceType competenceType;
 
-    public CompetenceDco(Integer competenceId, Integer evaluation, String competenceTitle, CompetenceType competenceType) {
+    private CompetenceTypeEnum competenceTypeEnum;
+
+    public CompetenceDco(Integer competenceId, Integer evaluation, String competenceTitle, CompetenceTypeEnum competenceTypeEnum) {
         this.competenceId = competenceId;
         this.evaluation = evaluation;
         this.competenceTitle = competenceTitle;
-        this.competenceType = competenceType;
+        this.competenceTypeEnum = competenceTypeEnum;
     }
 
-    public CompetenceDco(Integer evaluation, String competenceTitle, CompetenceType competenceType) {
+    public CompetenceDco(Integer evaluation, String competenceTitle, CompetenceTypeEnum competenceTypeEnum) {
         this.evaluation = evaluation;
         this.competenceTitle = competenceTitle;
-        this.competenceType = competenceType;
+        this.competenceTypeEnum = competenceTypeEnum;
     }
 
     public Integer getCompetenceId() {
@@ -48,11 +49,11 @@ public class CompetenceDco {
         this.competenceTitle = competenceTitle;
     }
 
-    public CompetenceType getCompetenceType() {
-        return competenceType;
+    public CompetenceTypeEnum getCompetenceTypeEnum() {
+        return competenceTypeEnum;
     }
 
-    public void setCompetenceType(CompetenceType competenceType) {
-        this.competenceType = competenceType;
+    public void setCompetenceTypeEnum(CompetenceTypeEnum competenceTypeEnum) {
+        this.competenceTypeEnum = competenceTypeEnum;
     }
 }

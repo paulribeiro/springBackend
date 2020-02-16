@@ -1,5 +1,8 @@
 package com.ecommerce.microcommerce.dto;
 
+import com.ecommerce.microcommerce.model.enums.ExperienceTypeEnum;
+import com.ecommerce.microcommerce.validator.interfaces.ValueOfEnum;
+
 import java.util.Date;
 
 public class ExperienceDco {
@@ -16,6 +19,7 @@ public class ExperienceDco {
 
     private String description;
 
+    @ValueOfEnum(enumClass = ExperienceTypeEnum.class)
     private String experienceType;
 
     public ExperienceDco(Integer experienceId, Integer organisationId, Integer locationId, Date startDate, Date endDate, String description, String experienceType) {

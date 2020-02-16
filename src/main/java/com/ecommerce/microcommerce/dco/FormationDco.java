@@ -1,6 +1,8 @@
 package com.ecommerce.microcommerce.dto;
 
-import com.ecommerce.microcommerce.model.enums.FormationType;
+import com.ecommerce.microcommerce.model.enums.ExperienceTypeEnum;
+import com.ecommerce.microcommerce.model.enums.FormationTypeEnum;
+import com.ecommerce.microcommerce.validator.interfaces.ValueOfEnum;
 
 import java.util.Date;
 
@@ -16,23 +18,24 @@ public class FormationDco {
 
     private Date endDate;
 
-    private FormationType formationType;
+    @ValueOfEnum(enumClass = FormationTypeEnum.class)
+    private FormationTypeEnum formationTypeEnum;
 
-    public FormationDco(Integer formationId, String formationTitle, Integer locationId, Date startDate, Date endDate, FormationType formationType) {
+    public FormationDco(Integer formationId, String formationTitle, Integer locationId, Date startDate, Date endDate, FormationTypeEnum formationTypeEnum) {
         this.formationId = formationId;
         this.formationTitle = formationTitle;
         this.locationId = locationId;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.formationType = formationType;
+        this.formationTypeEnum = formationTypeEnum;
     }
 
-    public FormationDco(String formationTitle, Integer locationId, Date startDate, Date endDate, FormationType formationType) {
+    public FormationDco(String formationTitle, Integer locationId, Date startDate, Date endDate, FormationTypeEnum formationTypeEnum) {
         this.formationTitle = formationTitle;
         this.locationId = locationId;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.formationType = formationType;
+        this.formationTypeEnum = formationTypeEnum;
     }
 
     public FormationDco() {
@@ -74,11 +77,11 @@ public class FormationDco {
         this.endDate = endDate;
     }
 
-    public FormationType getFormationType() {
-        return formationType;
+    public FormationTypeEnum getFormationTypeEnum() {
+        return formationTypeEnum;
     }
 
-    public void setFormationType(FormationType formationType) {
-        this.formationType = formationType;
+    public void setFormationTypeEnum(FormationTypeEnum formationTypeEnum) {
+        this.formationTypeEnum = formationTypeEnum;
     }
 }
