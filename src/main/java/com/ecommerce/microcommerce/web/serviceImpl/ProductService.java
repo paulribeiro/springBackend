@@ -1,8 +1,6 @@
-package com.ecommerce.microcommerce.web.service;
+package com.ecommerce.microcommerce.web.serviceImpl;
 
 import com.ecommerce.microcommerce.model.Product;
-import com.ecommerce.microcommerce.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

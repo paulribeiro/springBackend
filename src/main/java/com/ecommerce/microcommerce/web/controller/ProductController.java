@@ -2,7 +2,7 @@ package com.ecommerce.microcommerce.web.controller;
 import com.ecommerce.microcommerce.model.Product;
 import com.ecommerce.microcommerce.repository.ProductRepository;
 import com.ecommerce.microcommerce.web.exceptions.ProduitIntrouvableException;
-import com.ecommerce.microcommerce.web.service.ProductService;
+import com.ecommerce.microcommerce.web.serviceImpl.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
