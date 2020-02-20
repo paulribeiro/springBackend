@@ -1,6 +1,6 @@
 package com.ecommerce.microcommerce.model;
 
-import com.ecommerce.microcommerce.model.enums.CompetenceType;
+import com.ecommerce.microcommerce.model.enums.CompetenceTypeEnum;
 
 import javax.persistence.*;
 
@@ -19,15 +19,15 @@ public class Competence {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private CompetenceType competenceType;
+    private CompetenceTypeEnum competenceTypeEnum;
 
     public Competence() {
     }
 
-    public Competence(Integer evaluation, String competenceTitle, CompetenceType competenceType) {
+    public Competence(Integer evaluation, String competenceTitle, CompetenceTypeEnum competenceTypeEnum) {
         this.evaluation = evaluation;
         this.competenceTitle = competenceTitle;
-        this.competenceType = competenceType;
+        this.competenceTypeEnum = competenceTypeEnum;
     }
 
     public Integer getCompetenceId() {
@@ -54,12 +54,12 @@ public class Competence {
         this.competenceTitle = competenceTitle;
     }
 
-    public CompetenceType getCompetenceType() {
-        return competenceType;
+    public CompetenceTypeEnum getCompetenceTypeEnum() {
+        return competenceTypeEnum;
     }
 
-    public void setCompetenceType(CompetenceType competenceType) {
-        this.competenceType = competenceType;
+    public void setCompetenceTypeEnum(CompetenceTypeEnum competenceTypeEnum) {
+        this.competenceTypeEnum = competenceTypeEnum;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class Competence {
                 "competenceId=" + competenceId +
                 ", evaluation='"+ evaluation +
                 ", competenceTitle='"+ competenceTitle +
-                ", competenceType='"+ competenceType + '}';
+                ", competenceType='"+ competenceTypeEnum + '}';
     }
 
 }

@@ -1,4 +1,4 @@
-package com.ecommerce.microcommerce.dto;
+package com.ecommerce.microcommerce.dco;
 
 import com.ecommerce.microcommerce.model.enums.CompetenceTypeEnum;
 
@@ -9,7 +9,6 @@ public class CompetenceDco {
     private Integer evaluation;
 
     private String competenceTitle;
-
 
     private CompetenceTypeEnum competenceTypeEnum;
 

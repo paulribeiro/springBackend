@@ -2,29 +2,20 @@ package com.ecommerce.microcommerce.dto;
 
 import com.ecommerce.microcommerce.model.enums.CompetenceTypeEnum;
 
-import javax.persistence.*;
+public class CompetenceDto {
 
-@Entity
-@Table(name = "RES_COMPETENCE")
-public class Competence {
-
-    @Id
-    @GeneratedValue
     private Integer competenceId;
 
     private Integer evaluation;
 
-    @Column(nullable = false)
     private String competenceTitle;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private CompetenceTypeEnum competenceTypeEnum;
 
-    public Competence() {
+    public CompetenceDto() {
     }
 
-    public Competence(Integer evaluation, String competenceTitle, CompetenceTypeEnum competenceTypeEnum) {
+    public CompetenceDto(Integer evaluation, String competenceTitle, CompetenceTypeEnum competenceTypeEnum) {
         this.evaluation = evaluation;
         this.competenceTitle = competenceTitle;
         this.competenceTypeEnum = competenceTypeEnum;

@@ -1,5 +1,6 @@
 package com.ecommerce.microcommerce.Services;
 
+import com.ecommerce.microcommerce.dto.CompetenceDto;
 import com.ecommerce.microcommerce.model.Competence;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface ICompetenceService {
      *
      * @return list of Competences. Empty List if none.
      */
-    List<Competence> getAllCompetences();
+    List<CompetenceDto> getAllCompetences();
 
     /**
      * Method used to post a new competence.
@@ -19,7 +20,7 @@ public interface ICompetenceService {
      * @param competence : competence to be saved
      * @return the competence as it was saved.
      */
-    Competence postCompetence(Competence competence);
+    CompetenceDto postCompetence(Competence competence);
 
     /**
      * Method used to ,odify a competence.
@@ -27,7 +28,7 @@ public interface ICompetenceService {
      * @param competence : competence to be modified
      * @return the competence as it was modified.
      */
-    Competence putCompetence(Competence competence);
+    CompetenceDto putCompetence(Competence competence);
 
     /**
      * Method used to get a competence by Id.
@@ -35,5 +36,5 @@ public interface ICompetenceService {
      * @param competenceId : id of the competence researched.
      * @return the competence which correspond to the given Id/
      */
-    Competence getCompetence(Integer competenceId);
+    CompetenceDto getCompetence(Integer competenceId);
 }
