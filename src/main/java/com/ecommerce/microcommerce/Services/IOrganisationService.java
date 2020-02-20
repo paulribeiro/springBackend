@@ -1,5 +1,6 @@
 package com.ecommerce.microcommerce.Services;
 
+import com.ecommerce.microcommerce.dto.OrganisationDto;
 import com.ecommerce.microcommerce.model.Organisation;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface IOrganisationService {
      *
      * @return list of Organisations. Empty List if none.
      */
-    List<Organisation> getAllOrganisation();
+    List<OrganisationDto> getAllOrganisation();
 
     /**
      * Method used to get the given organisation by the id.
@@ -19,7 +20,7 @@ public interface IOrganisationService {
      * @param organisationId : id of the researched organisation.
      * @return the organisation corresponding to the given Id,
      */
-    Organisation getOrganisationbyId(Integer organisationId);
+    OrganisationDto getOrganisationbyId(Integer organisationId);
 
     /**
      * Method used to post a new organisation.
@@ -27,7 +28,7 @@ public interface IOrganisationService {
      * @param organisation : organisation to be saved
      * @return the organisation as it was saved.
      */
-    Organisation postOrganisation(Organisation organisation);
+    OrganisationDto postOrganisation(Organisation organisation);
 
     /**
      * Method used to modify an organisation.
@@ -35,5 +36,5 @@ public interface IOrganisationService {
      * @param organisation : organisation to be modified
      * @return the organisation as it was modified.
      */
-    Organisation putOrganisation(Organisation organisation);
+    OrganisationDto putOrganisation(Organisation organisation);
 }

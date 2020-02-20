@@ -1,4 +1,4 @@
-package com.ecommerce.microcommerce.dto;
+package com.ecommerce.microcommerce.dco;
 
 public class OrganisationDco {
 
