@@ -1,16 +1,7 @@
 package com.ecommerce.microcommerce.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class LocationDto {
 
-@Entity
-@Table(name = "RES_LOCATION")
-public class Location {
-
-    @Id
-    @GeneratedValue
     private Integer locationId;
 
     private String number;
@@ -23,10 +14,11 @@ public class Location {
 
     private String country;
 
-    public Location() {
+    public LocationDto() {
     }
 
-    public Location(String number, String street, String city, String zipCode, String country) {
+    public LocationDto(Integer locationId, String number, String street, String city, String zipCode, String country) {
+        this.locationId = locationId;
         this.number = number;
         this.street = street;
         this.city = city;
@@ -34,13 +26,15 @@ public class Location {
         this.country = country;
     }
 
-    public Location(Integer locationId) {
+    public LocationDto(Integer locationId) {
         this.locationId = locationId;
     }
 
     public Integer getLocationId() {
         return locationId;
     }
+
+    public void setLocationId(Integer locationId) { this.locationId = locationId; }
 
     public String getNumber() {
         return number;

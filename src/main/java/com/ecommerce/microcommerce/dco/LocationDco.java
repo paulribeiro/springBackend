@@ -1,4 +1,4 @@
-package com.ecommerce.microcommerce.dto;
+package com.ecommerce.microcommerce.dco;
 
 public class LocationDco {
 
@@ -37,6 +37,8 @@ public class LocationDco {
     public Integer getLocationId() {
         return locationId;
     }
+
+    public void setLocationId(Integer locationId) { this.locationId = locationId; }
 
     public String getNumber() {
         return number;

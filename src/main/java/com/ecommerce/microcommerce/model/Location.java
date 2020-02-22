@@ -42,6 +42,8 @@ public class Location {
         return locationId;
     }
 
+    public void setLocationId(Integer locationId) { this.locationId = locationId; }
+
     public String getNumber() {
         return number;
     }

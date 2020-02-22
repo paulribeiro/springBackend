@@ -1,5 +1,6 @@
 package com.ecommerce.microcommerce.Services;
 
+import com.ecommerce.microcommerce.dto.LocationDto;
 import com.ecommerce.microcommerce.model.Location;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface ILocationService {
      *
      * @return list of Locations. Empty List if none.
      */
-    List<Location> getAllLocation();
+    List<LocationDto> getAllLocation();
 
     /**
      * Method used to get the given by the id.
@@ -19,7 +20,7 @@ public interface ILocationService {
      * @param locationId : id of the researched location.
      * @return the location corresponding to the given Id,
      */
-    Location getLocationbyId(Integer locationId);
+    LocationDto getLocationbyId(Integer locationId);
 
     /**
      * Method used to post a new location.
@@ -27,7 +28,7 @@ public interface ILocationService {
      * @param location : location to be saved
      * @return the location as it was saved.
      */
-    Location postLocation(Location location);
+    LocationDto postLocation(Location location);
 
     /**
      * Method used to modify a location.
@@ -35,5 +36,5 @@ public interface ILocationService {
      * @param location : location to be modified
      * @return the location as it was modified.
      */
-    Location putLocation(Location location);
+    LocationDto putLocation(Location location);
 }
