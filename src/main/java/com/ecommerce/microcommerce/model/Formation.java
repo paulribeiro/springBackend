@@ -1,6 +1,6 @@
 package com.ecommerce.microcommerce.model;
 
-import com.ecommerce.microcommerce.model.enums.FormationType;
+import com.ecommerce.microcommerce.model.enums.FormationTypeEnum;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -26,12 +26,12 @@ public class Formation {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private FormationType formationType;
+    private FormationTypeEnum formationType;
 
     public Formation() {
     }
 
-    public Formation(String formationTitle, Location location, Date startDate, Date endDate, FormationType formationType) {
+    public Formation(String formationTitle, Location location, Date startDate, Date endDate, FormationTypeEnum formationType) {
         this.formationTitle = formationTitle;
         this.location = location;
         this.startDate = startDate;
@@ -75,11 +75,11 @@ public class Formation {
         this.endDate = endDate;
     }
 
-    public FormationType getFormationType() {
+    public FormationTypeEnum getFormationType() {
         return formationType;
     }
 
-    public void setFormationType(FormationType formationType) {
+    public void setFormationType(FormationTypeEnum formationType) {
         this.formationType = formationType;
     }
 
@@ -87,7 +87,8 @@ public class Formation {
     public String toString(){
         return "Formation{"+
                 "formationId=" + formationId +
-                ", formationTitle='"+ formationTitle +
+                ", formationTitle="+ formationTitle +
+                ", formaionType="+ formationType.toString() +
                 ", location='"+ location +
                 ", startDate='"+ startDate +
                 ", endDate='"+ endDate + '}';

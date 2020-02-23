@@ -2,38 +2,28 @@ package com.ecommerce.microcommerce.dto;
 
 import com.ecommerce.microcommerce.model.enums.FormationTypeEnum;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name = "RES_FORMATION")
-public class Formation {
+public class FormationDto {
 
-    @Id
-    @GeneratedValue
     private Integer formationId;
 
-    @Column(nullable = false)
     private String formationTitle;
 
-    @ManyToOne
-    @JoinColumn(name = "LOCATION_ID_FK", referencedColumnName = "locationId")
-    private Location location;
+    private LocationDto locationDto;
 
     private Date startDate;
 
     private Date endDate;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private FormationTypeEnum formationTypeEnum;
 
-    public Formation() {
+    public FormationDto() {
     }
 
-    public Formation(String formationTitle, Location location, Date startDate, Date endDate, FormationTypeEnum formationTypeEnum) {
+    public FormationDto(String formationTitle, LocationDto locationDto, Date startDate, Date endDate, FormationTypeEnum formationTypeEnum) {
         this.formationTitle = formationTitle;
-        this.location = location;
+        this.locationDto = locationDto;
         this.startDate = startDate;
         this.endDate = endDate;
         this.formationTypeEnum = formationTypeEnum;
@@ -41,6 +31,10 @@ public class Formation {
 
     public Integer getFormationId() {
         return formationId;
+    }
+
+    public void setFormationId(Integer formationId) {
+        this.formationId = formationId;
     }
 
     public String getFormationTitle() {
@@ -51,12 +45,12 @@ public class Formation {
         this.formationTitle = formationTitle;
     }
 
-    public Location getLocation() {
-        return location;
+    public LocationDto getLocationDto() {
+        return locationDto;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLocationDto(LocationDto locationDto) {
+        this.locationDto = locationDto;
     }
 
     public Date getStartDate() {
@@ -88,7 +82,7 @@ public class Formation {
         return "Formation{"+
                 "formationId=" + formationId +
                 ", formationTitle='"+ formationTitle +
-                ", location='"+ location +
+                ", location='"+ locationDto +
                 ", startDate='"+ startDate +
                 ", endDate='"+ endDate + '}';
     }

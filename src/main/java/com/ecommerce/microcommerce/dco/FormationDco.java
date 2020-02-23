@@ -1,6 +1,5 @@
-package com.ecommerce.microcommerce.dto;
+package com.ecommerce.microcommerce.dco;
 
-import com.ecommerce.microcommerce.model.enums.ExperienceTypeEnum;
 import com.ecommerce.microcommerce.model.enums.FormationTypeEnum;
 import com.ecommerce.microcommerce.validator.interfaces.ValueOfEnum;
 
@@ -19,23 +18,23 @@ public class FormationDco {
     private Date endDate;
 
     @ValueOfEnum(enumClass = FormationTypeEnum.class)
-    private FormationTypeEnum formationTypeEnum;
+    private String formationType;
 
-    public FormationDco(Integer formationId, String formationTitle, Integer locationId, Date startDate, Date endDate, FormationTypeEnum formationTypeEnum) {
+    public FormationDco(Integer formationId, String formationTitle, Integer locationId, Date startDate, Date endDate, String formationTypeEnum) {
         this.formationId = formationId;
         this.formationTitle = formationTitle;
         this.locationId = locationId;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.formationTypeEnum = formationTypeEnum;
+        this.formationType = formationTypeEnum;
     }
 
-    public FormationDco(String formationTitle, Integer locationId, Date startDate, Date endDate, FormationTypeEnum formationTypeEnum) {
+    public FormationDco(String formationTitle, Integer locationId, Date startDate, Date endDate, String formationTypeEnum) {
         this.formationTitle = formationTitle;
         this.locationId = locationId;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.formationTypeEnum = formationTypeEnum;
+        this.formationType = formationTypeEnum;
     }
 
     public FormationDco() {
@@ -43,6 +42,10 @@ public class FormationDco {
 
     public Integer getFormationId() {
         return formationId;
+    }
+
+    public void setFormationId(Integer formationId) {
+        this.formationId = formationId;
     }
 
     public String getFormationTitle() {
@@ -77,11 +80,11 @@ public class FormationDco {
         this.endDate = endDate;
     }
 
-    public FormationTypeEnum getFormationTypeEnum() {
-        return formationTypeEnum;
+    public String getFormationType() {
+        return formationType;
     }
 
-    public void setFormationTypeEnum(FormationTypeEnum formationTypeEnum) {
-        this.formationTypeEnum = formationTypeEnum;
+    public void setFormationType(String formationTypeEnum) {
+        this.formationType = formationTypeEnum;
     }
 }

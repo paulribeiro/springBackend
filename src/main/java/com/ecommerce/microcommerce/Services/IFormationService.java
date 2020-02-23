@@ -1,5 +1,6 @@
 package com.ecommerce.microcommerce.Services;
 
+import com.ecommerce.microcommerce.dto.FormationDto;
 import com.ecommerce.microcommerce.model.Competence;
 import com.ecommerce.microcommerce.model.Formation;
 
@@ -12,7 +13,7 @@ public interface IFormationService {
      *
      * @return list of Formations. Empty List if none.
      */
-    List<Formation> getAllFormations();
+    List<FormationDto> getAllFormations();
 
     /**
      * Method used to post a new formation.
@@ -20,7 +21,7 @@ public interface IFormationService {
      * @param formation : formation to be saved
      * @return the formation as it was saved.
      */
-    Formation postFormation(Formation formation);
+    FormationDto postFormation(Formation formation);
 
     /**
      * Method used to modify a formation.
@@ -28,7 +29,7 @@ public interface IFormationService {
      * @param formation : formation to be modified
      * @return the formation as it was modified.
      */
-    Formation putFormation(Formation formation);
+    FormationDto putFormation(Formation formation);
 
     /**
      * Method used to get a formation by Id.
@@ -36,5 +37,5 @@ public interface IFormationService {
      * @param formationId : id of the formation researched.
      * @return the formation which correspond to the given Id/
      */
-    Formation getFormation(Integer formationId);
+    FormationDto getFormation(Integer formationId);
 }
