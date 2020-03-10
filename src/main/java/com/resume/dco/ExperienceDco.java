@@ -19,25 +19,29 @@ public class ExperienceDco {
 
     private String description;
 
+    private String title;
+
     @ValueOfEnum(enumClass = ExperienceTypeEnum.class)
     private String experienceType;
 
-    public ExperienceDco(Integer experienceId, Integer organisationId, Integer locationId, Date startDate, Date endDate, String description, String experienceType) {
+    public ExperienceDco(Integer experienceId, Integer organisationId, Integer locationId, Date startDate, Date endDate, String title, String description, String experienceType) {
         this.experienceId = experienceId;
         this.organisationId = organisationId;
         this.locationId = locationId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.description = description;
+        this.title = title;
         this.experienceType = experienceType;
     }
 
-    public ExperienceDco(Integer organisationId, Integer locationId, Date startDate, Date endDate, String description, String experienceType) {
+    public ExperienceDco(Integer organisationId, Integer locationId, Date startDate, Date endDate, String description,String title, String experienceType) {
         this.organisationId = organisationId;
         this.locationId = locationId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.description = description;
+        this.title = title;
         this.experienceType = experienceType;
     }
 
@@ -98,5 +102,13 @@ public class ExperienceDco {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

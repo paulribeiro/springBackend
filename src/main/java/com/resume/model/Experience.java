@@ -30,6 +30,10 @@ public class Experience {
     @Length(max=2000)
     private String description;
 
+    @Column(nullable = false)
+    @Length(max=2000)
+    private String title;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ExperienceTypeEnum experienceType;
@@ -37,13 +41,14 @@ public class Experience {
     public Experience() {
     }
 
-    public Experience(Integer experienceId, Organisation organisation, Location location, Date startDate, Date endDate, String description) {
+    public Experience(Integer experienceId, Organisation organisation, Location location, Date startDate, Date endDate, String title, String description) {
         this.experienceId = experienceId;
         this.organisation = organisation;
         this.location = location;
         this.startDate = startDate;
         this.endDate = endDate;
         this.description = description;
+        this.title = title;
     }
 
     public Integer getExperienceId() {
@@ -98,6 +103,14 @@ public class Experience {
         this.experienceType = experienceType;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     @Override
     public String toString(){
         return "Experience{"+
@@ -107,6 +120,7 @@ public class Experience {
                 ", startDate='"+ startDate +
                 ", endDate='"+ endDate +
                 ", description='"+ description +
+                ", title='"+ title +
                 ", experienceType=" + experienceType + '}';
     }
 

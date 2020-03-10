@@ -44,12 +44,15 @@ public class ExperienceController {
         this.modelMapper = modelMapper;
     }
 
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @ApiOperation(value = "Get all the experiences")
     @GetMapping(value = "/Experiences")
     public ResponseEntity<List<ExperienceDto>> get() {
         return ResponseEntity.ok().body(experienceServiceImpl.getAllExperiences());
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @ApiOperation(value = "Get a given experience")
     @GetMapping(value = "/Experiences/{experienceId}")
     public ResponseEntity<ExperienceDto> get(@PathVariable int experienceId) {
@@ -61,12 +64,14 @@ public class ExperienceController {
         return ResponseEntity.ok().body(experienceDto);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @ApiOperation(value = "Post an experience")
     @PostMapping(value = "/Experiences")
     public ResponseEntity<ExperienceDto> post(@Valid @RequestBody ExperienceDco experienceDco) {
         return ResponseEntity.ok().body(experienceServiceImpl.postExperience(ConverterHelper.convertToEntity(experienceDco, modelMapper, locationRepository, organisationRepository)));
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @ApiOperation(value = "Update an experience")
     @PutMapping(value = "/Experiences")
     public ResponseEntity<ExperienceDto> put(@Valid @RequestBody ExperienceDco experienceDco) {
@@ -85,6 +90,7 @@ public class ExperienceController {
         currentExperience.setExperienceType(ExperienceTypeEnum.valueOf(experienceDco.getExperienceType()));
         currentExperience.setOrganisation(organisationRepository.findByOrganisationId(experienceDco.getOrganisationId()));
         currentExperience.setLocation(locationRepository.findByLocationId(experienceDco.getLocationId()));
+        currentExperience.setTitle(experienceDco.getTitle());
 
         return ResponseEntity.ok().body(experienceServiceImpl.putExperience(currentExperience));
     }

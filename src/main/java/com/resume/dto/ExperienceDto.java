@@ -18,17 +18,20 @@ public class ExperienceDto {
 
     private String description;
 
+    private String title;
+
     private ExperienceTypeEnum experienceType;
 
     public ExperienceDto() {
     }
 
-    public ExperienceDto(OrganisationDto organisationDto, LocationDto locationDto, Date startDate, Date endDate, String description) {
+    public ExperienceDto(OrganisationDto organisationDto, LocationDto locationDto, Date startDate, Date endDate, String description, String title) {
         this.organisationDto = organisationDto;
         this.locationDto = locationDto;
         this.startDate = startDate;
         this.endDate = endDate;
         this.description = description;
+        this.title = title;
     }
 
     public Integer getExperienceId() {
@@ -87,6 +90,14 @@ public class ExperienceDto {
         this.experienceType = experienceTypeEnum;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     @Override
     public String toString(){
         return "Experience{"+
@@ -96,6 +107,7 @@ public class ExperienceDto {
                 ", startDate='"+ startDate +
                 ", endDate='"+ endDate +
                 ", description='"+ description +
+                ", title="+ title +
                 ", experienceType=" + experienceType + '}';
     }
 
