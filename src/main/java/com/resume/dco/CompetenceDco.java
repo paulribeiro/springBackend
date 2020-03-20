@@ -10,18 +10,22 @@ public class CompetenceDco {
 
     private String competenceTitle;
 
+    private String competenceDescription;
+
     private CompetenceTypeEnum competenceTypeEnum;
 
-    public CompetenceDco(Integer competenceId, Integer evaluation, String competenceTitle, CompetenceTypeEnum competenceTypeEnum) {
+    public CompetenceDco(Integer competenceId, Integer evaluation, String competenceTitle, String competenceDescription, CompetenceTypeEnum competenceTypeEnum) {
         this.competenceId = competenceId;
         this.evaluation = evaluation;
+        this.competenceDescription = competenceDescription;
         this.competenceTitle = competenceTitle;
         this.competenceTypeEnum = competenceTypeEnum;
     }
 
-    public CompetenceDco(Integer evaluation, String competenceTitle, CompetenceTypeEnum competenceTypeEnum) {
+    public CompetenceDco(Integer evaluation, String competenceTitle, String competenceDescription, CompetenceTypeEnum competenceTypeEnum) {
         this.evaluation = evaluation;
         this.competenceTitle = competenceTitle;
+        this.competenceDescription = competenceDescription;
         this.competenceTypeEnum = competenceTypeEnum;
     }
 
@@ -58,5 +62,13 @@ public class CompetenceDco {
 
     public void setCompetenceTypeEnum(CompetenceTypeEnum competenceTypeEnum) {
         this.competenceTypeEnum = competenceTypeEnum;
+    }
+
+    public String getCompetenceDescription() {
+        return competenceDescription;
+    }
+
+    public void setCompetenceDescription(String competenceDescription) {
+        this.competenceDescription = competenceDescription;
     }
 }

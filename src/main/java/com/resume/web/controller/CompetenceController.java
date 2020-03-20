@@ -4,6 +4,7 @@ import com.resume.converter.ConverterHelper;
 import com.resume.dco.CompetenceDco;
 import com.resume.dto.CompetenceDto;
 import com.resume.model.Competence;
+import com.resume.model.enums.CompetenceTypeEnum;
 import com.resume.repository.CompetenceRepository;
 import com.resume.web.exceptions.UnexpectedCompetenceException;
 import com.resume.web.exceptions.NoContentException;
@@ -35,12 +36,21 @@ public class CompetenceController {
         this.modelMapper = modelMapper;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @ApiOperation(value = "Get all the competences")
     @GetMapping(value = "/Competences")
     public ResponseEntity<List<CompetenceDto>> get() {
         return ResponseEntity.ok().body(competenceService.getAllCompetences());
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @ApiOperation(value = "Get all the competences by types")
+    @GetMapping(value = "/Competences/CompetenceType/{competenceType}")
+    public ResponseEntity<List<CompetenceDto>> get(@PathVariable CompetenceTypeEnum competenceType) {
+        return ResponseEntity.ok().body(competenceService.getCompetencesByType(competenceType));
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @ApiOperation(value = "Get a given competence")
     @GetMapping(value = "/Competences/{competenceId}")
     public ResponseEntity<CompetenceDto> get(@PathVariable int competenceId) {
@@ -52,6 +62,7 @@ public class CompetenceController {
         return ResponseEntity.ok().body(competence);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @ApiOperation(value = "Post a competence")
     @PostMapping(value = "/Competences")
     public ResponseEntity<CompetenceDto> post(@Valid @RequestBody CompetenceDco competenceDco) {
@@ -71,6 +82,7 @@ public class CompetenceController {
         return ResponseEntity.created(location).build();
      */
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @ApiOperation(value = "Update a competence")
     @PutMapping(value = "/Competences")
     public ResponseEntity<CompetenceDto> put(@Valid @RequestBody CompetenceDco competenceDco) {
@@ -86,7 +98,23 @@ public class CompetenceController {
         currentCompetence.setCompetenceTitle(competenceDco.getCompetenceTitle());
         currentCompetence.setCompetenceTypeEnum(competenceDco.getCompetenceTypeEnum());
         currentCompetence.setEvaluation(competenceDco.getEvaluation());
+        currentCompetence.setCompetenceDescription(competenceDco.getCompetenceDescription());
 
         return ResponseEntity.ok().body(competenceService.putCompetence(currentCompetence));
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @ApiOperation(value = "Delete a competence")
+    @DeleteMapping(value = "/Competences/{competenceId}")
+    public ResponseEntity<Competence> delete(@PathVariable Integer competenceId) {
+        logger.info("Deleting competence with id {}", competenceId);
+        Competence competenceToDelete = competenceRepository.findByCompetenceId(competenceId);
+        Integer deletedCompetence  = competenceService.deleteCompetence(competenceId);
+
+        if(deletedCompetence == 0) {
+            throw new UnexpectedCompetenceException("Unable to delete. Competence with id " + competenceId + " not found.");
+        }
+        return ResponseEntity.ok().body(competenceToDelete);
+    }
+
 }

@@ -53,6 +53,9 @@ public class ConverterHelper {
     }
 
     public static CompetenceDto convertToDto(Competence competence, ModelMapper modelMapper) {
+        if(competence == null) {
+            return null;
+        }
         return modelMapper.map(competence, CompetenceDto.class);
     }
 

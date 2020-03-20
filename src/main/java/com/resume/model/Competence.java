@@ -17,6 +17,8 @@ public class Competence {
     @Column(nullable = false)
     private String competenceTitle;
 
+    private String competenceDescription;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private CompetenceTypeEnum competenceTypeEnum;
@@ -24,9 +26,10 @@ public class Competence {
     public Competence() {
     }
 
-    public Competence(Integer evaluation, String competenceTitle, CompetenceTypeEnum competenceTypeEnum) {
+    public Competence(Integer evaluation, String competenceTitle, String competenceDescription, CompetenceTypeEnum competenceTypeEnum) {
         this.evaluation = evaluation;
         this.competenceTitle = competenceTitle;
+        this.competenceDescription = competenceDescription;
         this.competenceTypeEnum = competenceTypeEnum;
     }
 
@@ -58,12 +61,21 @@ public class Competence {
         this.competenceTypeEnum = competenceTypeEnum;
     }
 
+    public String getCompetenceDescription() {
+        return competenceDescription;
+    }
+
+    public void setCompetenceDescription(String competenceDescription) {
+        this.competenceDescription = competenceDescription;
+    }
+
     @Override
     public String toString(){
         return "Competence{"+
                 "competenceId=" + competenceId +
                 ", evaluation='"+ evaluation +
                 ", competenceTitle='"+ competenceTitle +
+                ", competenceDescription='"+ competenceDescription +
                 ", competenceType='"+ competenceTypeEnum + '}';
     }
 
