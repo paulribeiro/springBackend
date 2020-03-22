@@ -3,6 +3,7 @@ package com.resume.converter;
 import com.resume.dco.*;
 import com.resume.dto.*;
 import com.resume.model.*;
+import com.resume.repository.ExperienceRepository;
 import com.resume.repository.LocationRepository;
 import com.resume.repository.OrganisationRepository;
 import org.modelmapper.ModelMapper;
@@ -141,5 +142,38 @@ public class ConverterHelper {
 
     public static Organisation convertToEntity(OrganisationDco organisationDco, ModelMapper modelMapper) {
         return modelMapper.map(organisationDco, Organisation.class);
+    }
+
+    //Project
+    public static ProjectDco convertToDco(Project project, ModelMapper modelMapper) {
+        return modelMapper.map(project, ProjectDco.class);
+    }
+
+    public static ProjectDto convertToDto(Project project, ModelMapper modelMapper) {
+        if(project == null) {
+            return null;
+        }
+        ProjectDto projectDto = modelMapper.map(project, ProjectDto.class);
+        if(project.getExperience() != null) {
+            projectDto.setExperience(modelMapper.map(project.getExperience(), ExperienceDto.class));
+        }
+        return projectDto;
+    }
+
+    public static List<ProjectDto> convertToProjectListDto(List<Project> projects, ModelMapper modelMapper) {
+        List<ProjectDto> projectDtoList = new ArrayList<>();
+        for(Project project : projects) {
+            projectDtoList.add(convertToDto(project, modelMapper));
+        }
+        return projectDtoList;
+    }
+
+    public static Project convertToEntity(ProjectDco projectDco, ModelMapper modelMapper, ExperienceRepository experienceRepository) {
+        Project project = modelMapper.map(projectDco, Project.class);
+        Experience experienceAttachedToProject = experienceRepository.findByExperienceId(projectDco.getExperienceId());
+        if(experienceAttachedToProject != null) {
+            project.setExperience(experienceAttachedToProject);
+        }
+        return project;
     }
 }

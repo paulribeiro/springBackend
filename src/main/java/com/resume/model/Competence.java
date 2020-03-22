@@ -3,6 +3,7 @@ package com.resume.model;
 import com.resume.model.enums.CompetenceTypeEnum;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "RES_COMPETENCE")
@@ -22,6 +23,9 @@ public class Competence {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private CompetenceTypeEnum competenceTypeEnum;
+
+    @ManyToMany(mappedBy = "competencesForProject")
+    private Set<Project> projects;
 
     public Competence() {
     }
