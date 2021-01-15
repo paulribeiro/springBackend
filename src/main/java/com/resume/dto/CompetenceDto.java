@@ -1,12 +1,13 @@
 package com.resume.dto;
 
+import com.resume.model.enums.CompetenceEvaluationEnum;
 import com.resume.model.enums.CompetenceTypeEnum;
 
 public class CompetenceDto {
 
     private Integer competenceId;
 
-    private Integer evaluation;
+    private CompetenceEvaluationEnum evaluation;
 
     private String competenceTitle;
 
@@ -17,7 +18,7 @@ public class CompetenceDto {
     public CompetenceDto() {
     }
 
-    public CompetenceDto(Integer evaluation, String competenceTitle, String competenceDescription, CompetenceTypeEnum competenceTypeEnum) {
+    public CompetenceDto(CompetenceEvaluationEnum evaluation, String competenceTitle, String competenceDescription, CompetenceTypeEnum competenceTypeEnum) {
         this.evaluation = evaluation;
         this.competenceTitle = competenceTitle;
         this.competenceTypeEnum = competenceTypeEnum;
@@ -32,11 +33,11 @@ public class CompetenceDto {
         this.competenceId = competenceId;
     }
 
-    public Integer getEvaluation() {
+    public CompetenceEvaluationEnum getEvaluation() {
         return evaluation;
     }
 
-    public void setEvaluation(Integer evaluation) {
+    public void setEvaluation(CompetenceEvaluationEnum evaluation) {
         this.evaluation = evaluation;
     }
 

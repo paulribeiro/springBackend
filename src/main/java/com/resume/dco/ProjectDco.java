@@ -1,10 +1,11 @@
 package com.resume.dco;
 
-import com.resume.model.enums.ExperienceTypeEnum;
+import com.resume.dto.CompetenceDto;
 import com.resume.model.enums.ProjectTypeEnum;
 import com.resume.validator.interfaces.ValueOfEnum;
 
-import java.util.Date;
+import java.util.Set;
+
 
 public class ProjectDco {
 
@@ -21,21 +22,25 @@ public class ProjectDco {
     @ValueOfEnum(enumClass = ProjectTypeEnum.class)
     private String projectType;
 
-    public ProjectDco(Integer projectId, Integer experienceId, String description, String title, String linkToProject, String projectType) {
+    private Set<Integer> competenceIds;
+
+    public ProjectDco(Integer projectId, Integer experienceId, String description, String title, String linkToProject, String projectType, Set<Integer> competenceIds) {
         this.projectId = projectId;
         this.experienceId = experienceId;
         this.description = description;
         this.title = title;
         this.linkToProject = linkToProject;
         this.projectType = projectType;
+        this.competenceIds = competenceIds;
     }
 
-    public ProjectDco(Integer experienceId, String description, String title, String linkToProject, String projectType) {
+    public ProjectDco(Integer experienceId, String description, String title, String linkToProject, String projectType, Set<Integer> competenceIds) {
         this.experienceId = experienceId;
         this.description = description;
         this.title = title;
         this.linkToProject = linkToProject;
         this.projectType = projectType;
+        this.competenceIds = competenceIds;
     }
 
     public ProjectDco() {
@@ -87,5 +92,13 @@ public class ProjectDco {
 
     public void setProjectType(String projectType) {
         this.projectType = projectType;
+    }
+
+    public Set<Integer> getCompetenceIds() {
+        return competenceIds;
+    }
+
+    public void setCompetenceIds(Set<Integer> competenceIds) {
+        this.competenceIds = competenceIds;
     }
 }

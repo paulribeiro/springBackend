@@ -3,13 +3,18 @@ package com.resume.converter;
 import com.resume.dco.*;
 import com.resume.dto.*;
 import com.resume.model.*;
+import com.resume.repository.CompetenceRepository;
 import com.resume.repository.ExperienceRepository;
 import com.resume.repository.LocationRepository;
 import com.resume.repository.OrganisationRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ConverterHelper {
 
@@ -146,7 +151,11 @@ public class ConverterHelper {
 
     //Project
     public static ProjectDco convertToDco(Project project, ModelMapper modelMapper) {
-        return modelMapper.map(project, ProjectDco.class);
+        ProjectDco projectDco = modelMapper.map(project, ProjectDco.class);
+        Set<Integer> competencesIdForProject = project.getCompetencesForProject()
+                                                .stream().map(Competence::getCompetenceId).collect(Collectors.toSet());
+        projectDco.setCompetenceIds(competencesIdForProject);
+        return projectDco;
     }
 
     public static ProjectDto convertToDto(Project project, ModelMapper modelMapper) {
@@ -156,6 +165,9 @@ public class ConverterHelper {
         ProjectDto projectDto = modelMapper.map(project, ProjectDto.class);
         if(project.getExperience() != null) {
             projectDto.setExperience(modelMapper.map(project.getExperience(), ExperienceDto.class));
+        }
+        if(project.getCompetencesForProject() == null) {
+            projectDto.setCompetences(Collections.emptySet());
         }
         return projectDto;
     }
@@ -168,11 +180,21 @@ public class ConverterHelper {
         return projectDtoList;
     }
 
-    public static Project convertToEntity(ProjectDco projectDco, ModelMapper modelMapper, ExperienceRepository experienceRepository) {
+    public static Project convertToEntity(ProjectDco projectDco, ModelMapper modelMapper, ExperienceRepository experienceRepository, CompetenceRepository competenceRepository) {
         Project project = modelMapper.map(projectDco, Project.class);
         Experience experienceAttachedToProject = experienceRepository.findByExperienceId(projectDco.getExperienceId());
         if(experienceAttachedToProject != null) {
             project.setExperience(experienceAttachedToProject);
+        }
+        if(!CollectionUtils.isEmpty(projectDco.getCompetenceIds())) {
+            Set<Competence> competenceForProject = Collections.EMPTY_SET;
+            try {
+                competenceForProject = projectDco.getCompetenceIds().stream().map(id -> competenceRepository.findByCompetenceId(id)).collect(Collectors.toSet());
+            }
+            catch (Exception e) {
+                return null;
+            }
+            project.setCompetencesForProject(competenceForProject);
         }
         return project;
     }

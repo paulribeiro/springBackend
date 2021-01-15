@@ -5,14 +5,12 @@ import com.resume.dco.ExperienceDco;
 import com.resume.dco.ProjectDco;
 import com.resume.dto.ExperienceDto;
 import com.resume.dto.ProjectDto;
+import com.resume.model.Competence;
 import com.resume.model.Experience;
 import com.resume.model.Project;
 import com.resume.model.enums.ExperienceTypeEnum;
 import com.resume.model.enums.ProjectTypeEnum;
-import com.resume.repository.ExperienceRepository;
-import com.resume.repository.LocationRepository;
-import com.resume.repository.OrganisationRepository;
-import com.resume.repository.ProjectRepository;
+import com.resume.repository.*;
 import com.resume.web.exceptions.NoContentException;
 import com.resume.web.exceptions.UnexpectedExperienceException;
 import com.resume.web.serviceImpl.ExperienceServiceImpl;
@@ -26,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 public class ProjectController {
@@ -34,28 +34,31 @@ public class ProjectController {
 
     private ExperienceRepository experienceRepository;
 
+    private CompetenceRepository competenceRepository;
+
     private ProjectRepository projectRepository;
 
     private ModelMapper modelMapper;
 
     public static final Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
-    public ProjectController(ProjectServiceImpl projectServiceImpl, ExperienceRepository experienceRepository, ProjectRepository projectRepository, ModelMapper modelMapper) {
+    public ProjectController(ProjectServiceImpl projectServiceImpl, ExperienceRepository experienceRepository, ProjectRepository projectRepository, ModelMapper modelMapper, CompetenceRepository competenceRepository) {
         this.projectServiceImpl = projectServiceImpl;
         this.experienceRepository = experienceRepository;
         this.projectRepository = projectRepository;
+        this.competenceRepository = competenceRepository;
         this.modelMapper = modelMapper;
     }
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin()
     @ApiOperation(value = "Get all the projects")
     @GetMapping(value = "/Projects")
     public ResponseEntity<List<ProjectDto>> get() {
         return ResponseEntity.ok().body(projectServiceImpl.getAllProjects());
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin()
     @ApiOperation(value = "Get a given project")
     @GetMapping(value = "/Projects/{projectId}")
     public ResponseEntity<ProjectDto> get(@PathVariable int projectId) {
@@ -67,14 +70,14 @@ public class ProjectController {
         return ResponseEntity.ok().body(projectDto);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin()
     @ApiOperation(value = "Post a project")
     @PostMapping(value = "/Projects")
     public ResponseEntity<ProjectDto> post(@Valid @RequestBody ProjectDco projectDco) {
-        return ResponseEntity.ok().body(projectServiceImpl.postProject(ConverterHelper.convertToEntity(projectDco, modelMapper, experienceRepository)));
+        return ResponseEntity.ok().body(projectServiceImpl.postProject(ConverterHelper.convertToEntity(projectDco, modelMapper, experienceRepository, competenceRepository)));
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin()
     @ApiOperation(value = "Update a project")
     @PutMapping(value = "/Projects")
     public ResponseEntity<ProjectDto> put(@Valid @RequestBody ProjectDco projectDco) {
@@ -92,6 +95,8 @@ public class ProjectController {
         currentProject.setProjectType(ProjectTypeEnum.valueOf(projectDco.getProjectType()));
         currentProject.setTitle(projectDco.getTitle());
         currentProject.setExperience(experienceRepository.findByExperienceId(projectDco.getExperienceId()));
+        Set<Competence> competencesForProject = projectDco.getCompetenceIds().stream().map(id -> competenceRepository.findByCompetenceId(id)).collect(Collectors.toSet());
+        currentProject.setCompetencesForProject(competencesForProject);
 
         return ResponseEntity.ok().body(projectServiceImpl.putProject(currentProject));
     }

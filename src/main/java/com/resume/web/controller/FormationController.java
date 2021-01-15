@@ -40,18 +40,21 @@ public class FormationController {
         this.modelMapper = modelMapper;
     }
 
+    @CrossOrigin()
     @ApiOperation(value = "Get all the formations")
     @GetMapping(value = "/Formations")
     public ResponseEntity<List<FormationDto>> get() {
         return ResponseEntity.ok().body(formationService.getAllFormations());
     }
 
+    @CrossOrigin()
     @ApiOperation(value = "Post a formation")
     @PostMapping(value = "/Formations")
     public ResponseEntity<FormationDto> post(@Valid @RequestBody FormationDco formationDco) {
         return ResponseEntity.ok().body(formationService.postFormation(ConverterHelper.convertToEntity(formationDco, modelMapper, locationRepository)));
     }
 
+    @CrossOrigin()
     @ApiOperation(value = "Update a formation")
     @PutMapping(value = "/Formations")
     public ResponseEntity<FormationDto> put(@Valid @RequestBody FormationDco formationDco) {
@@ -72,6 +75,7 @@ public class FormationController {
         return ResponseEntity.ok().body(formationService.putFormation(currentFormation));
     }
 
+    @CrossOrigin()
     @ApiOperation(value = "Get a given formation")
     @GetMapping(value = "/Formations/{formationId}")
     public ResponseEntity<FormationDto> get(@PathVariable int formationId) {

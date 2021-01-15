@@ -24,11 +24,11 @@ public class CompetenceController {
 
     public static final Logger logger = LoggerFactory.getLogger(CompetenceController.class);
 
-    private CompetenceServiceImpl competenceService;
+    private final CompetenceServiceImpl competenceService;
 
-    private CompetenceRepository competenceRepository;
+    private final CompetenceRepository competenceRepository;
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public CompetenceController(CompetenceServiceImpl competenceService, CompetenceRepository competenceRepository, ModelMapper modelMapper) {
         this.competenceService = competenceService;
@@ -36,21 +36,21 @@ public class CompetenceController {
         this.modelMapper = modelMapper;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin()
     @ApiOperation(value = "Get all the competences")
     @GetMapping(value = "/Competences")
     public ResponseEntity<List<CompetenceDto>> get() {
         return ResponseEntity.ok().body(competenceService.getAllCompetences());
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin()
     @ApiOperation(value = "Get all the competences by types")
     @GetMapping(value = "/Competences/CompetenceType/{competenceType}")
     public ResponseEntity<List<CompetenceDto>> get(@PathVariable CompetenceTypeEnum competenceType) {
         return ResponseEntity.ok().body(competenceService.getCompetencesByType(competenceType));
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin()
     @ApiOperation(value = "Get a given competence")
     @GetMapping(value = "/Competences/{competenceId}")
     public ResponseEntity<CompetenceDto> get(@PathVariable int competenceId) {
@@ -62,7 +62,7 @@ public class CompetenceController {
         return ResponseEntity.ok().body(competence);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin()
     @ApiOperation(value = "Post a competence")
     @PostMapping(value = "/Competences")
     public ResponseEntity<CompetenceDto> post(@Valid @RequestBody CompetenceDco competenceDco) {
@@ -82,7 +82,7 @@ public class CompetenceController {
         return ResponseEntity.created(location).build();
      */
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin()
     @ApiOperation(value = "Update a competence")
     @PutMapping(value = "/Competences")
     public ResponseEntity<CompetenceDto> put(@Valid @RequestBody CompetenceDco competenceDco) {
@@ -103,7 +103,7 @@ public class CompetenceController {
         return ResponseEntity.ok().body(competenceService.putCompetence(currentCompetence));
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin()
     @ApiOperation(value = "Delete a competence")
     @DeleteMapping(value = "/Competences/{competenceId}")
     public ResponseEntity<Competence> delete(@PathVariable Integer competenceId) {

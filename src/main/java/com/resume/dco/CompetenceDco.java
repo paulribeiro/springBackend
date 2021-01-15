@@ -1,12 +1,13 @@
 package com.resume.dco;
 
+import com.resume.model.enums.CompetenceEvaluationEnum;
 import com.resume.model.enums.CompetenceTypeEnum;
 
 public class CompetenceDco {
 
     private Integer competenceId;
 
-    private Integer evaluation;
+    private CompetenceEvaluationEnum evaluation;
 
     private String competenceTitle;
 
@@ -14,7 +15,7 @@ public class CompetenceDco {
 
     private CompetenceTypeEnum competenceTypeEnum;
 
-    public CompetenceDco(Integer competenceId, Integer evaluation, String competenceTitle, String competenceDescription, CompetenceTypeEnum competenceTypeEnum) {
+    public CompetenceDco(Integer competenceId, CompetenceEvaluationEnum evaluation, String competenceTitle, String competenceDescription, CompetenceTypeEnum competenceTypeEnum) {
         this.competenceId = competenceId;
         this.evaluation = evaluation;
         this.competenceDescription = competenceDescription;
@@ -22,7 +23,7 @@ public class CompetenceDco {
         this.competenceTypeEnum = competenceTypeEnum;
     }
 
-    public CompetenceDco(Integer evaluation, String competenceTitle, String competenceDescription, CompetenceTypeEnum competenceTypeEnum) {
+    public CompetenceDco(CompetenceEvaluationEnum evaluation, String competenceTitle, String competenceDescription, CompetenceTypeEnum competenceTypeEnum) {
         this.evaluation = evaluation;
         this.competenceTitle = competenceTitle;
         this.competenceDescription = competenceDescription;
@@ -40,11 +41,11 @@ public class CompetenceDco {
         this.competenceId = competenceId;
     }
 
-    public Integer getEvaluation() {
+    public CompetenceEvaluationEnum getEvaluation() {
         return evaluation;
     }
 
-    public void setEvaluation(Integer evaluation) {
+    public void setEvaluation(CompetenceEvaluationEnum evaluation) {
         this.evaluation = evaluation;
     }
 

@@ -1,5 +1,6 @@
 package com.resume.model;
 
+import com.resume.model.enums.CompetenceEvaluationEnum;
 import com.resume.model.enums.CompetenceTypeEnum;
 
 import javax.persistence.*;
@@ -13,7 +14,9 @@ public class Competence {
     @GeneratedValue
     private Integer competenceId;
 
-    private Integer evaluation;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private CompetenceEvaluationEnum evaluation;
 
     @Column(nullable = false)
     private String competenceTitle;
@@ -30,7 +33,7 @@ public class Competence {
     public Competence() {
     }
 
-    public Competence(Integer evaluation, String competenceTitle, String competenceDescription, CompetenceTypeEnum competenceTypeEnum) {
+    public Competence(CompetenceEvaluationEnum evaluation, String competenceTitle, String competenceDescription, CompetenceTypeEnum competenceTypeEnum) {
         this.evaluation = evaluation;
         this.competenceTitle = competenceTitle;
         this.competenceDescription = competenceDescription;
@@ -41,11 +44,11 @@ public class Competence {
         return competenceId;
     }
 
-    public Integer getEvaluation() {
+    public CompetenceEvaluationEnum getEvaluation() {
         return evaluation;
     }
 
-    public void setEvaluation(Integer evaluation) {
+    public void setEvaluation(CompetenceEvaluationEnum evaluation) {
         this.evaluation = evaluation;
     }
 

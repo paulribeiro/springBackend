@@ -103,6 +103,14 @@ public class Project {
         this.projectType = projectType;
     }
 
+    public Set<Competence> getCompetencesForProject() {
+        return competencesForProject;
+    }
+
+    public void setCompetencesForProject(Set<Competence> competencesForProject) {
+        this.competencesForProject = competencesForProject;
+    }
+
     @Override
     public String toString(){
         return "Project{"+

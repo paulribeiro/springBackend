@@ -35,12 +35,14 @@ public class LocationController {
         this.modelMapper = modelMapper;
     }
 
+    @CrossOrigin()
     @ApiOperation(value = "Get all the locations")
     @GetMapping(value = "/Locations")
     public ResponseEntity<List<LocationDto>> get() {
         return ResponseEntity.ok().body(locationService.getAllLocation());
     }
 
+    @CrossOrigin()
     @ApiOperation(value = "Get a given location")
     @GetMapping(value = "/Locations/{locationId}")
     public ResponseEntity<LocationDto> get(@PathVariable int locationId) {
@@ -54,12 +56,14 @@ public class LocationController {
         return ResponseEntity.ok().body(location);
     }
 
+    @CrossOrigin()
     @ApiOperation(value = "Post a location")
     @PostMapping(value = "/Locations")
     public ResponseEntity<LocationDto> post(@Valid @RequestBody LocationDco locationDco) {
         return ResponseEntity.ok().body(locationService.postLocation(ConverterHelper.convertToEntity(locationDco, modelMapper)));
     }
 
+    @CrossOrigin()
     @ApiOperation(value = "Update a location")
     @PutMapping(value = "/Locations")
     public ResponseEntity<LocationDto> put(@Valid @RequestBody LocationDco locationDco) {

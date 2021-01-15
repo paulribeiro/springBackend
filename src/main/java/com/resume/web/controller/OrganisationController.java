@@ -35,18 +35,21 @@ public class OrganisationController {
         this.modelMapper = modelMapper;
     }
 
+    @CrossOrigin()
     @ApiOperation(value = "Get all the Organisations")
     @GetMapping(value = "/Organisations")
     public ResponseEntity<List<OrganisationDto>> get() {
         return ResponseEntity.ok().body(organisationService.getAllOrganisation());
     }
 
+    @CrossOrigin()
     @ApiOperation(value = "Post an organisation")
     @PostMapping(value = "/Organisations")
     public ResponseEntity<OrganisationDto> post(@Valid @RequestBody OrganisationDco organisationDco) {
         return ResponseEntity.ok().body(organisationService.postOrganisation(ConverterHelper.convertToEntity(organisationDco, modelMapper)));
     }
 
+    @CrossOrigin()
     @ApiOperation(value = "Update an Organisation")
     @PutMapping(value = "/Organisations")
     public ResponseEntity<OrganisationDto> put(@Valid @RequestBody OrganisationDco organisationDco) {
@@ -64,6 +67,7 @@ public class OrganisationController {
         return ResponseEntity.ok().body(organisationService.putOrganisation(currentOrganisation));
     }
 
+    @CrossOrigin()
     @ApiOperation(value = "Get a given organisation")
     @GetMapping(value = "/Organisations/{organisationId}")
     public ResponseEntity<OrganisationDto> get(@PathVariable int organisationId) {

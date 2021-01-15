@@ -2,6 +2,8 @@ package com.resume.dto;
 
 import com.resume.model.enums.ProjectTypeEnum;
 
+import java.util.Set;
+
 public class ProjectDto {
 
     private Integer projectId;
@@ -16,16 +18,19 @@ public class ProjectDto {
 
     private ProjectTypeEnum projectType;
 
+    private Set<CompetenceDto> competencesForProject;
+
     public ProjectDto() {
     }
 
-    public ProjectDto(Integer projectId, ExperienceDto experience, String description, String title, String linkToProject, ProjectTypeEnum projectType) {
+    public ProjectDto(Integer projectId, ExperienceDto experience, String description, String title, String linkToProject, ProjectTypeEnum projectType, Set<CompetenceDto> competences) {
         this.projectId = projectId;
         this.experience = experience;
         this.description = description;
         this.title = title;
         this.linkToProject = linkToProject;
         this.projectType = projectType;
+        this.competencesForProject = competences;
     }
 
     public Integer getProjectId() {
@@ -76,6 +81,10 @@ public class ProjectDto {
         this.projectType = projectType;
     }
 
+    public Set<CompetenceDto> getCompetences() { return competencesForProject; }
+
+    public void setCompetences(Set<CompetenceDto> competences) { this.competencesForProject = competences; }
+
     @Override
     public String toString(){
         return "Project{"+
@@ -84,7 +93,8 @@ public class ProjectDto {
                 ", description='"+ description +
                 ", title='"+ title +
                 ", linkToProject='"+ linkToProject +
-                ", projectType='"+ projectType + '}';
+                ", projectType='"+ projectType +
+                ", competences='"+ competencesForProject + '}';
     }
 
 }
