@@ -1,6 +1,5 @@
 package com.resume.dco;
 
-import com.resume.dto.CompetenceDto;
 import com.resume.model.enums.ProjectTypeEnum;
 import com.resume.validator.interfaces.ValueOfEnum;
 

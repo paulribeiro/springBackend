@@ -182,9 +182,11 @@ public class ConverterHelper {
 
     public static Project convertToEntity(ProjectDco projectDco, ModelMapper modelMapper, ExperienceRepository experienceRepository, CompetenceRepository competenceRepository) {
         Project project = modelMapper.map(projectDco, Project.class);
-        Experience experienceAttachedToProject = experienceRepository.findByExperienceId(projectDco.getExperienceId());
-        if(experienceAttachedToProject != null) {
-            project.setExperience(experienceAttachedToProject);
+        if(projectDco.getExperienceId() != null) {
+            Experience experienceAttachedToProject = experienceRepository.findByExperienceId(projectDco.getExperienceId());
+            if(experienceAttachedToProject != null) {
+                project.setExperience(experienceAttachedToProject);
+            }
         }
         if(!CollectionUtils.isEmpty(projectDco.getCompetenceIds())) {
             Set<Competence> competenceForProject = Collections.EMPTY_SET;

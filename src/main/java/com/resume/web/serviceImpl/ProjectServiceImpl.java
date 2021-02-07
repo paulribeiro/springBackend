@@ -1,21 +1,19 @@
 package com.resume.web.serviceImpl;
 
-import com.resume.Services.IExperienceService;
 import com.resume.Services.IProjectService;
 import com.resume.converter.ConverterHelper;
-import com.resume.dto.ExperienceDto;
 import com.resume.dto.ProjectDto;
-import com.resume.model.Experience;
 import com.resume.model.Project;
-import com.resume.repository.ExperienceRepository;
 import com.resume.repository.ProjectRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class ProjectServiceImpl implements IProjectService {
 
     @Autowired
@@ -47,4 +45,8 @@ public class ProjectServiceImpl implements IProjectService {
         return ConverterHelper.convertToDto(projectRepository.findByProjectId(projectId), modelMapper);
     }
 
+    @Override
+    public Integer deleteProject(Integer projectId) {
+        return projectRepository.deleteProjectByProjectId(projectId);
+    }
 }

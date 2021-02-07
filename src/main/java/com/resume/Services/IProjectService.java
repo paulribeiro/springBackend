@@ -36,4 +36,12 @@ public interface IProjectService {
      * @return The project with the id projectId.
      */
     ProjectDto getProject(Integer projectId);
+
+    /**
+     * Method used to delete a project by Id.
+     *
+     * @param projectId : id of the project to delete.
+     * @return the projectId which was deleted
+     */
+    Integer deleteProject(Integer projectId);
 }

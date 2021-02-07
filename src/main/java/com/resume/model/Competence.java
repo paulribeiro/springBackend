@@ -21,6 +21,7 @@ public class Competence {
     @Column(nullable = false)
     private String competenceTitle;
 
+    @Column(length = 10000)
     private String competenceDescription;
 
     @Enumerated(EnumType.STRING)
