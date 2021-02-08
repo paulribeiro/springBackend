@@ -3,9 +3,11 @@ package com.resume.web.controller;
 import com.resume.converter.ConverterHelper;
 import com.resume.dco.LocationDco;
 import com.resume.dto.LocationDto;
+import com.resume.model.Competence;
 import com.resume.model.Location;
 import com.resume.repository.LocationRepository;
 import com.resume.web.exceptions.NoContentException;
+import com.resume.web.exceptions.UnexpectedCompetenceException;
 import com.resume.web.exceptions.UnexpectedLocationException;
 import com.resume.web.serviceImpl.LocationServiceImpl;
 import io.swagger.annotations.ApiOperation;
@@ -83,6 +85,20 @@ public class LocationController {
         currentLocation.setZipCode(locationDco.getZipCode());
 
         return ResponseEntity.ok().body(locationService.putLocation(currentLocation));
+    }
+
+    @CrossOrigin()
+    @ApiOperation(value = "Delete a location")
+    @DeleteMapping(value = "/Locations/{locationId}")
+    public ResponseEntity<Location> delete(@PathVariable Integer locationId) {
+        logger.info("Deleting location with id {}", locationId);
+        Location locationToDelete = locationRepository.findByLocationId(locationId);
+        Integer deletedLocation  = locationService.deleteLocation(locationId);
+
+        if(deletedLocation == 0) {
+            throw new UnexpectedCompetenceException("Unable to delete. Location with id " + locationId + " not found.");
+        }
+        return ResponseEntity.ok().body(locationToDelete);
     }
 
 }

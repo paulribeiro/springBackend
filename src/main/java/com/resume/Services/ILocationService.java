@@ -37,4 +37,13 @@ public interface ILocationService {
      * @return the location as it was modified.
      */
     LocationDto putLocation(Location location);
+
+    /**
+     * Method used to delete a location by Id.
+     *
+     * @param locationId : id of the location to delete.
+     * @return the locationId which was deleted
+     */
+    Integer deleteLocation(Integer locationId);
+
 }

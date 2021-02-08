@@ -9,9 +9,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class LocationServiceImpl implements ILocationService {
 
     @Autowired
@@ -37,7 +39,6 @@ public class LocationServiceImpl implements ILocationService {
         return ConverterHelper.convertToDto(location, modelMapper);
     }
 
-
     @Override
     public LocationDto postLocation(Location location) {
         return ConverterHelper.convertToDto(locationRepository.save(location), modelMapper);
@@ -46,5 +47,10 @@ public class LocationServiceImpl implements ILocationService {
     @Override
     public LocationDto putLocation(Location location) {
         return ConverterHelper.convertToDto(locationRepository.save(location), modelMapper);
+    }
+
+    @Override
+    public Integer deleteLocation(Integer locationId) {
+        return locationRepository.deleteLocationByLocationId(locationId);
     }
 }

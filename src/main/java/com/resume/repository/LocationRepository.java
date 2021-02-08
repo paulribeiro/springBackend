@@ -13,7 +13,7 @@ public interface LocationRepository extends JpaRepository<Location, Integer> {
 
     Location findByLocationId(int id);
 
-    void deleteLocationByLocationId(int id);
+    Integer deleteLocationByLocationId(Integer id);
 
     Location save(Location location);
 }
