@@ -37,4 +37,12 @@ public interface IFormationService {
      * @return the formation which correspond to the given Id/
      */
     FormationDto getFormation(Integer formationId);
+
+    /**
+     * Method used to delete a formation by Id.
+     *
+     * @param formationId : id of the formation to delete.
+     * @return the formationId which was deleted
+     */
+    Integer deleteFormation(Integer formationId);
 }

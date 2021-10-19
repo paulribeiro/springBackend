@@ -85,7 +85,7 @@ public class ConverterHelper {
 
     public static FormationDto convertToDto(Formation formation, ModelMapper modelMapper) {
         FormationDto formationDto = modelMapper.map(formation, FormationDto.class);
-        formationDto.setLocationDto(modelMapper.map(formation.getLocation(), LocationDto.class));
+        formationDto.setLocation(modelMapper.map(formation.getLocation(), LocationDto.class));
         formationDto.setFormationId(formation.getFormationId());
         return formationDto;
     }

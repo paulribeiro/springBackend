@@ -4,10 +4,12 @@ import com.resume.converter.ConverterHelper;
 import com.resume.dco.FormationDco;
 import com.resume.dto.FormationDto;
 import com.resume.model.Formation;
+import com.resume.model.Project;
 import com.resume.model.enums.FormationTypeEnum;
 import com.resume.repository.FormationRepository;
 import com.resume.repository.LocationRepository;
 import com.resume.web.exceptions.NoContentException;
+import com.resume.web.exceptions.UnexpectedCompetenceException;
 import com.resume.web.exceptions.UnexpectedFormationException;
 import com.resume.web.serviceImpl.FormationServiceImpl;
 import io.swagger.annotations.ApiOperation;
@@ -85,5 +87,19 @@ public class FormationController {
             throw new NoContentException("Unable to get formation with id " + formationId + " not found.");
         }
         return ResponseEntity.ok().body(formationDto);
+    }
+
+    @CrossOrigin()
+    @ApiOperation(value = "Delete a formation")
+    @DeleteMapping(value = "/Formations/{formationId}")
+    public ResponseEntity<Formation> delete(@PathVariable Integer formationId) {
+        logger.info("Deleting formation with id {}", formationId);
+        Formation formationToDelete = formationRepository.findByFormationId(formationId);
+        Integer deletedFormation  = formationService.deleteFormation(formationId);
+
+        if(deletedFormation == 0) {
+            throw new UnexpectedCompetenceException("Unable to delete. Formation with id " + formationId + " not found.");
+        }
+        return ResponseEntity.ok().body(formationToDelete);
     }
 }

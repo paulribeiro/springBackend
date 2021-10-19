@@ -3,6 +3,7 @@ package com.resume.dco;
 import com.resume.model.enums.FormationTypeEnum;
 import com.resume.validator.interfaces.ValueOfEnum;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class FormationDco {
@@ -13,14 +14,14 @@ public class FormationDco {
 
     private Integer locationId;
 
-    private Date startDate;
+    private LocalDateTime startDate;
 
-    private Date endDate;
+    private LocalDateTime endDate;
 
     @ValueOfEnum(enumClass = FormationTypeEnum.class)
     private String formationType;
 
-    public FormationDco(Integer formationId, String formationTitle, Integer locationId, Date startDate, Date endDate, String formationTypeEnum) {
+    public FormationDco(Integer formationId, String formationTitle, Integer locationId, LocalDateTime startDate, LocalDateTime endDate, String formationTypeEnum) {
         this.formationId = formationId;
         this.formationTitle = formationTitle;
         this.locationId = locationId;
@@ -29,7 +30,7 @@ public class FormationDco {
         this.formationType = formationTypeEnum;
     }
 
-    public FormationDco(String formationTitle, Integer locationId, Date startDate, Date endDate, String formationTypeEnum) {
+    public FormationDco(String formationTitle, Integer locationId, LocalDateTime startDate, LocalDateTime endDate, String formationTypeEnum) {
         this.formationTitle = formationTitle;
         this.locationId = locationId;
         this.startDate = startDate;
@@ -64,19 +65,19 @@ public class FormationDco {
         this.locationId = locationId;
     }
 
-    public Date getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 

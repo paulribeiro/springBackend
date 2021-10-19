@@ -13,7 +13,7 @@ public interface FormationRepository extends JpaRepository<Formation, Integer> {
 
     Formation findByFormationId(int id);
 
-    void deleteFormationByFormationId(int id);
+    Integer deleteFormationByFormationId(int id);
 
     Formation save(Formation formation);
 }

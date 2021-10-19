@@ -2,6 +2,7 @@ package com.resume.dto;
 
 import com.resume.model.enums.FormationTypeEnum;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class FormationDto {
@@ -10,23 +11,23 @@ public class FormationDto {
 
     private String formationTitle;
 
-    private LocationDto locationDto;
+    private LocationDto location;
 
-    private Date startDate;
+    private LocalDateTime startDate;
 
-    private Date endDate;
+    private LocalDateTime endDate;
 
-    private FormationTypeEnum formationTypeEnum;
+    private FormationTypeEnum formationType;
 
     public FormationDto() {
     }
 
-    public FormationDto(String formationTitle, LocationDto locationDto, Date startDate, Date endDate, FormationTypeEnum formationTypeEnum) {
+    public FormationDto(String formationTitle, LocationDto location, LocalDateTime startDate, LocalDateTime endDate, FormationTypeEnum formationTypeEnum) {
         this.formationTitle = formationTitle;
-        this.locationDto = locationDto;
+        this.location = location;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.formationTypeEnum = formationTypeEnum;
+        this.formationType = formationTypeEnum;
     }
 
     public Integer getFormationId() {
@@ -45,36 +46,36 @@ public class FormationDto {
         this.formationTitle = formationTitle;
     }
 
-    public LocationDto getLocationDto() {
-        return locationDto;
+    public LocationDto getLocation() {
+        return location;
     }
 
-    public void setLocationDto(LocationDto locationDto) {
-        this.locationDto = locationDto;
+    public void setLocation(LocationDto location) {
+        this.location = location;
     }
 
-    public Date getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
-    public FormationTypeEnum getFormationTypeEnum() {
-        return formationTypeEnum;
+    public FormationTypeEnum getFormationType() {
+        return formationType;
     }
 
-    public void setFormationTypeEnum(FormationTypeEnum formationTypeEnum) {
-        this.formationTypeEnum = formationTypeEnum;
+    public void setFormationType(FormationTypeEnum formationType) {
+        this.formationType = formationType;
     }
 
     @Override
@@ -82,7 +83,7 @@ public class FormationDto {
         return "Formation{"+
                 "formationId=" + formationId +
                 ", formationTitle='"+ formationTitle +
-                ", location='"+ locationDto +
+                ", location='"+ location +
                 ", startDate='"+ startDate +
                 ", endDate='"+ endDate + '}';
     }

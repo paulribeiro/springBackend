@@ -9,9 +9,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class FormationServiceImpl implements IFormationService {
 
     @Autowired
@@ -45,5 +47,10 @@ public class FormationServiceImpl implements IFormationService {
             return null;
         }
         return ConverterHelper.convertToDto(formation, modelMapper);
+    }
+
+    @Override
+    public Integer deleteFormation(Integer formationId) {
+        return formationRepository.deleteFormationByFormationId(formationId);
     }
 }

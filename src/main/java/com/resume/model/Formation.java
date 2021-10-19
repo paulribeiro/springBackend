@@ -3,6 +3,7 @@ package com.resume.model;
 import com.resume.model.enums.FormationTypeEnum;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -20,9 +21,9 @@ public class Formation {
     @JoinColumn(name = "LOCATION_ID_FK", referencedColumnName = "locationId")
     private Location location;
 
-    private Date startDate;
+    private LocalDateTime startDate;
 
-    private Date endDate;
+    private LocalDateTime endDate;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -31,7 +32,7 @@ public class Formation {
     public Formation() {
     }
 
-    public Formation(String formationTitle, Location location, Date startDate, Date endDate, FormationTypeEnum formationType) {
+    public Formation(String formationTitle, Location location, LocalDateTime startDate, LocalDateTime endDate, FormationTypeEnum formationType) {
         this.formationTitle = formationTitle;
         this.location = location;
         this.startDate = startDate;
@@ -59,19 +60,19 @@ public class Formation {
         this.location = location;
     }
 
-    public Date getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
