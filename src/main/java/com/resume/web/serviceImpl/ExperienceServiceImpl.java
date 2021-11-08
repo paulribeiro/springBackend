@@ -3,6 +3,7 @@ package com.resume.web.serviceImpl;
 import com.resume.Services.IExperienceService;
 import com.resume.converter.ConverterHelper;
 import com.resume.dto.ExperienceDto;
+import com.resume.dto.FormationDto;
 import com.resume.model.Experience;
 import com.resume.repository.ExperienceRepository;
 import org.modelmapper.ModelMapper;
@@ -43,4 +44,8 @@ public class ExperienceServiceImpl implements IExperienceService {
         return ConverterHelper.convertToDto(experienceRepository.findByExperienceId(experienceId), modelMapper);
     }
 
+    @Override
+    public List<ExperienceDto> getExperienceLinkedToLocation(Integer locationId) {
+        return ConverterHelper.convertToExperienceListDto(experienceRepository.findByLocation_LocationId(locationId), modelMapper);
+    }
 }

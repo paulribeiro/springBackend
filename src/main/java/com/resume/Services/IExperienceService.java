@@ -1,6 +1,7 @@
 package com.resume.Services;
 
 import com.resume.dto.ExperienceDto;
+import com.resume.dto.FormationDto;
 import com.resume.model.Experience;
 
 import java.util.List;
@@ -37,4 +38,13 @@ public interface IExperienceService {
      * @return The experience with the id experienceId.
      */
     ExperienceDto getExperience(Integer experienceId);
+
+
+    /**
+     * Method used to find all experiences currently linked to a given locationId.
+     *
+     * @param locationId : id of the location to search.
+     * @return the experiences which are attached to the given locationId
+     */
+    List<ExperienceDto> getExperienceLinkedToLocation(Integer locationId);
 }

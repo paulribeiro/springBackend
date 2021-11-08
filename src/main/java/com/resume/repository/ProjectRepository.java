@@ -15,7 +15,7 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
     @Query("select p from Project p left join fetch p.competencesForProject b where p.projectId = ?1")
     Project findByProjectId(int id);
 
-    Integer deleteProjectByProjectId(Integer id);
+    Integer deleteProjectByProjectId(int id);
 
     Project save(Project project);
 }

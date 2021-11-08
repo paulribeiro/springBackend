@@ -11,6 +11,8 @@ public interface FormationRepository extends JpaRepository<Formation, Integer> {
 
     List<Formation> findAll();
 
+    List<Formation> findByLocation_LocationId(Integer locationId);
+
     Formation findByFormationId(int id);
 
     Integer deleteFormationByFormationId(int id);

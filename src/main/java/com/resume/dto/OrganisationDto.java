@@ -20,6 +20,10 @@ public class OrganisationDto {
         this.organisationId = organisationId;
     }
 
+    public OrganisationDto(String organisationName) {
+        this.organisationName = organisationName;
+    }
+
     public Integer getOrganisationId() {
         return organisationId;
     }

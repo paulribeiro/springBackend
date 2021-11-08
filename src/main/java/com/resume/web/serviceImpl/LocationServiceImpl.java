@@ -2,6 +2,7 @@ package com.resume.web.serviceImpl;
 
 import com.resume.Services.ILocationService;
 import com.resume.converter.ConverterHelper;
+import com.resume.dco.LocationDco;
 import com.resume.dto.LocationDto;
 import com.resume.model.Location;
 import com.resume.repository.LocationRepository;
@@ -41,11 +42,23 @@ public class LocationServiceImpl implements ILocationService {
 
     @Override
     public LocationDto postLocation(Location location) {
+
         return ConverterHelper.convertToDto(locationRepository.save(location), modelMapper);
     }
 
     @Override
-    public LocationDto putLocation(Location location) {
+    public LocationDto putLocation(LocationDco locationDco) {
+
+        Location location = locationRepository.findByLocationId(locationDco.getLocationId());
+        if(location == null) {
+            return null;
+        }
+        location.setCity(locationDco.getCity());
+        location.setCountry(locationDco.getCountry());
+        location.setNumber(locationDco.getNumber());
+        location.setStreet(locationDco.getStreet());
+        location.setZipCode(locationDco.getZipCode());
+
         return ConverterHelper.convertToDto(locationRepository.save(location), modelMapper);
     }
 

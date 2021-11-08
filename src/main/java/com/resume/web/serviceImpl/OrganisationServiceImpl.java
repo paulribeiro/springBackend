@@ -9,9 +9,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class OrganisationServiceImpl implements IOrganisationService {
 
     @Autowired
@@ -45,5 +47,10 @@ public class OrganisationServiceImpl implements IOrganisationService {
     @Override
     public OrganisationDto putOrganisation(Organisation organisation) {
         return ConverterHelper.convertToDto(organisationRepository.save(organisation), modelMapper);
+    }
+
+    @Override
+    public Integer deleteOrganisation(Integer organisationId) {
+        return organisationRepository.deleteOrganisationByOrganisationId(organisationId);
     }
 }

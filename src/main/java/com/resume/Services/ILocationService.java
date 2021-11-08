@@ -1,5 +1,6 @@
 package com.resume.Services;
 
+import com.resume.dco.LocationDco;
 import com.resume.dto.LocationDto;
 import com.resume.model.Location;
 
@@ -36,7 +37,7 @@ public interface ILocationService {
      * @param location : location to be modified
      * @return the location as it was modified.
      */
-    LocationDto putLocation(Location location);
+    LocationDto putLocation(LocationDco location);
 
     /**
      * Method used to delete a location by Id.

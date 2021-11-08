@@ -145,8 +145,9 @@ public class ConverterHelper {
         return organisationDtoList;
     }
 
-    public static Organisation convertToEntity(OrganisationDco organisationDco, ModelMapper modelMapper) {
-        return modelMapper.map(organisationDco, Organisation.class);
+    public static Organisation convertToEntity(OrganisationDco organisationDco, String organisationLogoName) {
+        return new Organisation(organisationDco.getOrganisationId(), organisationDco.getOrganisationName(),
+                organisationLogoName);
     }
 
     //Project

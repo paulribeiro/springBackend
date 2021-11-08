@@ -13,7 +13,7 @@ public interface OrganisationRepository extends JpaRepository<Organisation, Inte
 
     Organisation findByOrganisationId(int id);
 
-    void deleteOrganisationByOrganisationId(int id);
+    Integer deleteOrganisationByOrganisationId(Integer id);
 
     Organisation save(Organisation organisation);
 }

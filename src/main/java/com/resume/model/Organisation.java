@@ -24,6 +24,12 @@ public class Organisation {
     public Organisation() {
     }
 
+    public Organisation(Integer organisationId, String organisationName, String logoAddress) {
+        this.organisationId = organisationId;
+        this.organisationName = organisationName;
+        this.logoAddress = logoAddress;
+    }
+
     public Organisation(String organisationName, String logoAddress) {
         this.organisationName = organisationName;
         this.logoAddress = logoAddress;

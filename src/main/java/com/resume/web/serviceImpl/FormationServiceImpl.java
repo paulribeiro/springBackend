@@ -19,7 +19,7 @@ public class FormationServiceImpl implements IFormationService {
     @Autowired
     private FormationRepository formationRepository;
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public FormationServiceImpl(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
@@ -52,5 +52,10 @@ public class FormationServiceImpl implements IFormationService {
     @Override
     public Integer deleteFormation(Integer formationId) {
         return formationRepository.deleteFormationByFormationId(formationId);
+    }
+
+    @Override
+    public List<FormationDto> getFormationLinkedToLocation(Integer locationId) {
+        return ConverterHelper.convertToFormationListDto(formationRepository.findByLocation_LocationId(locationId), modelMapper);
     }
 }

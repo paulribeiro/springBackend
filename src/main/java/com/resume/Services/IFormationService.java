@@ -45,4 +45,13 @@ public interface IFormationService {
      * @return the formationId which was deleted
      */
     Integer deleteFormation(Integer formationId);
+
+    /**
+     * Method used to find all formation currently linked to a given locationId.
+     *
+     * @param locationId : id of the location to search.
+     * @return the formation which are attached to the given locationId
+     */
+    List<FormationDto> getFormationLinkedToLocation(Integer locationId);
+
 }
