@@ -2,11 +2,14 @@ package com.resume.web.serviceImpl;
 
 import com.resume.Services.IFormationService;
 import com.resume.converter.ConverterHelper;
+import com.resume.dco.FormationDco;
 import com.resume.dto.FormationDto;
 import com.resume.model.Formation;
+import com.resume.model.Location;
+import com.resume.model.enums.FormationTypeEnum;
 import com.resume.repository.FormationRepository;
+import com.resume.repository.LocationRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,13 +19,16 @@ import java.util.List;
 @Transactional
 public class FormationServiceImpl implements IFormationService {
 
-    @Autowired
-    private FormationRepository formationRepository;
+    private final FormationRepository formationRepository;
+
+    private final LocationRepository locationRepository;
 
     private final ModelMapper modelMapper;
 
-    public FormationServiceImpl(ModelMapper modelMapper) {
+    public FormationServiceImpl(FormationRepository formationRepository, LocationRepository locationRepository, ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
+        this.formationRepository = formationRepository;
+        this.locationRepository = locationRepository;
     }
 
     @Override
@@ -31,12 +37,28 @@ public class FormationServiceImpl implements IFormationService {
     }
 
     @Override
-    public FormationDto postFormation(Formation formation) {
+    public FormationDto postFormation(FormationDco formationDco) {
+
+        Location location = locationRepository.findByLocationId(formationDco.getLocationId());
+
+        Formation formation = ConverterHelper.convertToEntity(formationDco, modelMapper, location);
+
         return ConverterHelper.convertToDto(formationRepository.save(formation), modelMapper);
     }
 
     @Override
-    public FormationDto putFormation(Formation formation) {
+    public FormationDto putFormation(FormationDco formationDco) {
+
+        Formation formation = formationRepository.findByFormationId(formationDco.getFormationId());
+        if(formation == null) {
+            return null;
+        }
+        formation.setStartDate(formationDco.getStartDate());
+        formation.setEndDate(formationDco.getEndDate());
+        formation.setFormationTitle(formationDco.getFormationTitle());
+        formation.setFormationType(FormationTypeEnum.valueOf(formationDco.getFormationType()));
+        formation.setLocation(locationRepository.findByLocationId(formationDco.getLocationId()));
+
         return ConverterHelper.convertToDto(formationRepository.save(formation), modelMapper);
     }
 

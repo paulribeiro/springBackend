@@ -1,7 +1,7 @@
 package com.resume.Services;
 
+import com.resume.dco.FormationDco;
 import com.resume.dto.FormationDto;
-import com.resume.model.Formation;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public interface IFormationService {
      * @param formation : formation to be saved
      * @return the formation as it was saved.
      */
-    FormationDto postFormation(Formation formation);
+    FormationDto postFormation(FormationDco formation);
 
     /**
      * Method used to modify a formation.
@@ -28,7 +28,7 @@ public interface IFormationService {
      * @param formation : formation to be modified
      * @return the formation as it was modified.
      */
-    FormationDto putFormation(Formation formation);
+    FormationDto putFormation(FormationDco formation);
 
     /**
      * Method used to get a formation by Id.

@@ -99,9 +99,9 @@ public class ConverterHelper {
         return formationDtoList;
     }
 
-    public static Formation convertToEntity(FormationDco formationDco, ModelMapper modelMapper, LocationRepository locationRepository) {
+    public static Formation convertToEntity(FormationDco formationDco, ModelMapper modelMapper, Location location) {
         Formation formation = modelMapper.map(formationDco, Formation.class);
-        formation.setLocation(locationRepository.findByLocationId(formationDco.getLocationId()));
+        formation.setLocation(location);
         return formation;
     }
 
