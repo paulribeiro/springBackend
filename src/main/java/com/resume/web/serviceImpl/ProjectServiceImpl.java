@@ -5,8 +5,6 @@ import com.resume.converter.ConverterHelper;
 import com.resume.dto.ProjectDto;
 import com.resume.model.Project;
 import com.resume.repository.ProjectRepository;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,33 +14,30 @@ import java.util.List;
 @Transactional
 public class ProjectServiceImpl implements IProjectService {
 
-    @Autowired
-    private ProjectRepository projectRepository;
+    private final ProjectRepository projectRepository;
 
-    private ModelMapper modelMapper;
-
-    public ProjectServiceImpl(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
+    public ProjectServiceImpl(ProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
     }
 
     @Override
     public List<ProjectDto> getAllProjects() {
-        return ConverterHelper.convertToProjectListDto(projectRepository.findAll(), modelMapper);
+        return ConverterHelper.convertToProjectListDto(projectRepository.findAll());
     }
 
     @Override
     public ProjectDto postProject(Project project) {
-        return ConverterHelper.convertToDto(projectRepository.save(project), modelMapper);
+        return ConverterHelper.convertToDto(projectRepository.save(project));
     }
 
     @Override
     public ProjectDto putProject(Project project) {
-        return ConverterHelper.convertToDto(projectRepository.save(project), modelMapper);
+        return ConverterHelper.convertToDto(projectRepository.save(project));
     }
 
     @Override
     public ProjectDto getProject(Integer projectId) {
-        return ConverterHelper.convertToDto(projectRepository.findByProjectId(projectId), modelMapper);
+        return ConverterHelper.convertToDto(projectRepository.findByProjectId(projectId));
     }
 
     @Override

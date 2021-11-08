@@ -6,17 +6,17 @@ import com.resume.dto.ProjectDto;
 import com.resume.model.Competence;
 import com.resume.model.Project;
 import com.resume.model.enums.ProjectTypeEnum;
-import com.resume.repository.*;
+import com.resume.repository.CompetenceRepository;
+import com.resume.repository.ExperienceRepository;
+import com.resume.repository.ProjectRepository;
 import com.resume.web.exceptions.NoContentException;
 import com.resume.web.exceptions.UnexpectedCompetenceException;
 import com.resume.web.exceptions.UnexpectedExperienceException;
 import com.resume.web.serviceImpl.ProjectServiceImpl;
 import io.swagger.annotations.ApiOperation;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -35,16 +35,13 @@ public class ProjectController {
 
     private ProjectRepository projectRepository;
 
-    private ModelMapper modelMapper;
-
     public static final Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
-    public ProjectController(ProjectServiceImpl projectService, ExperienceRepository experienceRepository, ProjectRepository projectRepository, ModelMapper modelMapper, CompetenceRepository competenceRepository) {
+    public ProjectController(ProjectServiceImpl projectService, ExperienceRepository experienceRepository, ProjectRepository projectRepository, CompetenceRepository competenceRepository) {
         this.projectService = projectService;
         this.experienceRepository = experienceRepository;
         this.projectRepository = projectRepository;
         this.competenceRepository = competenceRepository;
-        this.modelMapper = modelMapper;
     }
 
 
@@ -71,7 +68,7 @@ public class ProjectController {
     @ApiOperation(value = "Post a project")
     @PostMapping(value = "/Projects")
     public ResponseEntity<ProjectDto> post(@Valid @RequestBody ProjectDco projectDco) {
-        return ResponseEntity.ok().body(projectService.postProject(ConverterHelper.convertToEntity(projectDco, modelMapper, experienceRepository, competenceRepository)));
+        return ResponseEntity.ok().body(projectService.postProject(ConverterHelper.convertToEntity(projectDco, experienceRepository, competenceRepository)));
     }
 
     @CrossOrigin()

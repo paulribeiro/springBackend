@@ -6,11 +6,10 @@ import com.resume.dto.CompetenceDto;
 import com.resume.model.Competence;
 import com.resume.model.enums.CompetenceTypeEnum;
 import com.resume.repository.CompetenceRepository;
-import com.resume.web.exceptions.UnexpectedCompetenceException;
 import com.resume.web.exceptions.NoContentException;
+import com.resume.web.exceptions.UnexpectedCompetenceException;
 import com.resume.web.serviceImpl.CompetenceServiceImpl;
 import io.swagger.annotations.ApiOperation;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -28,12 +27,9 @@ public class CompetenceController {
 
     private final CompetenceRepository competenceRepository;
 
-    private final ModelMapper modelMapper;
-
-    public CompetenceController(CompetenceServiceImpl competenceService, CompetenceRepository competenceRepository, ModelMapper modelMapper) {
+    public CompetenceController(CompetenceServiceImpl competenceService, CompetenceRepository competenceRepository) {
         this.competenceService = competenceService;
         this.competenceRepository = competenceRepository;
-        this.modelMapper = modelMapper;
     }
 
     @CrossOrigin()
@@ -66,21 +62,8 @@ public class CompetenceController {
     @ApiOperation(value = "Post a competence")
     @PostMapping(value = "/Competences")
     public ResponseEntity<CompetenceDto> post(@Valid @RequestBody CompetenceDco competenceDco) {
-        return ResponseEntity.ok().body(competenceService.postCompetence(ConverterHelper.convertToEntity(competenceDco, modelMapper)));
+        return ResponseEntity.ok().body(competenceService.postCompetence(ConverterHelper.convertToEntity(competenceDco)));
     }
-
-    /*
-        if (productAdded == null)
-            return ResponseEntity.noContent().build();
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(productAdded.getId())
-                .toUri();
-
-        return ResponseEntity.created(location).build();
-     */
 
     @CrossOrigin()
     @ApiOperation(value = "Update a competence")

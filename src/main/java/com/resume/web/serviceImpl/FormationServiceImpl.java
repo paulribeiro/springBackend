@@ -9,7 +9,6 @@ import com.resume.model.Location;
 import com.resume.model.enums.FormationTypeEnum;
 import com.resume.repository.FormationRepository;
 import com.resume.repository.LocationRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,17 +22,14 @@ public class FormationServiceImpl implements IFormationService {
 
     private final LocationRepository locationRepository;
 
-    private final ModelMapper modelMapper;
-
-    public FormationServiceImpl(FormationRepository formationRepository, LocationRepository locationRepository, ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
+    public FormationServiceImpl(FormationRepository formationRepository, LocationRepository locationRepository) {
         this.formationRepository = formationRepository;
         this.locationRepository = locationRepository;
     }
 
     @Override
     public List<FormationDto> getAllFormations() {
-        return ConverterHelper.convertToFormationListDto(formationRepository.findAll(), modelMapper);
+        return ConverterHelper.convertToFormationListDto(formationRepository.findAll());
     }
 
     @Override
@@ -41,9 +37,9 @@ public class FormationServiceImpl implements IFormationService {
 
         Location location = locationRepository.findByLocationId(formationDco.getLocationId());
 
-        Formation formation = ConverterHelper.convertToEntity(formationDco, modelMapper, location);
+        Formation formation = ConverterHelper.convertToEntity(formationDco, location);
 
-        return ConverterHelper.convertToDto(formationRepository.save(formation), modelMapper);
+        return ConverterHelper.convertToDto(formationRepository.save(formation));
     }
 
     @Override
@@ -59,7 +55,7 @@ public class FormationServiceImpl implements IFormationService {
         formation.setFormationType(FormationTypeEnum.valueOf(formationDco.getFormationType()));
         formation.setLocation(locationRepository.findByLocationId(formationDco.getLocationId()));
 
-        return ConverterHelper.convertToDto(formationRepository.save(formation), modelMapper);
+        return ConverterHelper.convertToDto(formationRepository.save(formation));
     }
 
     @Override
@@ -68,7 +64,7 @@ public class FormationServiceImpl implements IFormationService {
         if(formation == null) {
             return null;
         }
-        return ConverterHelper.convertToDto(formation, modelMapper);
+        return ConverterHelper.convertToDto(formation);
     }
 
     @Override
@@ -78,6 +74,6 @@ public class FormationServiceImpl implements IFormationService {
 
     @Override
     public List<FormationDto> getFormationLinkedToLocation(Integer locationId) {
-        return ConverterHelper.convertToFormationListDto(formationRepository.findByLocation_LocationId(locationId), modelMapper);
+        return ConverterHelper.convertToFormationListDto(formationRepository.findByLocation_LocationId(locationId));
     }
 }

@@ -6,8 +6,6 @@ import com.resume.dco.LocationDco;
 import com.resume.dto.LocationDto;
 import com.resume.model.Location;
 import com.resume.repository.LocationRepository;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -17,18 +15,15 @@ import java.util.List;
 @Transactional
 public class LocationServiceImpl implements ILocationService {
 
-    @Autowired
-    private LocationRepository locationRepository;
+    private final LocationRepository locationRepository;
 
-    private ModelMapper modelMapper;
-
-    public LocationServiceImpl(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
+    public LocationServiceImpl(LocationRepository locationRepository) {
+        this.locationRepository = locationRepository;
     }
 
     @Override
     public List<LocationDto> getAllLocation() {
-        return ConverterHelper.convertToLocationListDto(locationRepository.findAll(), modelMapper);
+        return ConverterHelper.convertToLocationListDto(locationRepository.findAll());
     }
 
     @Override
@@ -37,13 +32,13 @@ public class LocationServiceImpl implements ILocationService {
         if(location == null) {
             return null;
         }
-        return ConverterHelper.convertToDto(location, modelMapper);
+        return ConverterHelper.convertToDto(location);
     }
 
     @Override
     public LocationDto postLocation(Location location) {
 
-        return ConverterHelper.convertToDto(locationRepository.save(location), modelMapper);
+        return ConverterHelper.convertToDto(locationRepository.save(location));
     }
 
     @Override
@@ -59,7 +54,7 @@ public class LocationServiceImpl implements ILocationService {
         location.setStreet(locationDco.getStreet());
         location.setZipCode(locationDco.getZipCode());
 
-        return ConverterHelper.convertToDto(locationRepository.save(location), modelMapper);
+        return ConverterHelper.convertToDto(locationRepository.save(location));
     }
 
     @Override

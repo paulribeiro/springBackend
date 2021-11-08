@@ -12,7 +12,6 @@ import com.resume.web.exceptions.NoContentException;
 import com.resume.web.exceptions.UnexpectedExperienceException;
 import com.resume.web.serviceImpl.ExperienceServiceImpl;
 import io.swagger.annotations.ApiOperation;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -32,16 +31,13 @@ public class ExperienceController {
 
     private OrganisationRepository organisationRepository;
 
-    private ModelMapper modelMapper;
-
     public static final Logger logger = LoggerFactory.getLogger(ExperienceController.class);
 
-    public ExperienceController(ExperienceServiceImpl experienceServiceImpl, ExperienceRepository experienceRepository, LocationRepository locationRepository, OrganisationRepository organisationRepository, ModelMapper modelMapper) {
+    public ExperienceController(ExperienceServiceImpl experienceServiceImpl, ExperienceRepository experienceRepository, LocationRepository locationRepository, OrganisationRepository organisationRepository) {
         this.experienceServiceImpl = experienceServiceImpl;
         this.experienceRepository = experienceRepository;
         this.locationRepository = locationRepository;
         this.organisationRepository = organisationRepository;
-        this.modelMapper = modelMapper;
     }
 
 
@@ -68,7 +64,7 @@ public class ExperienceController {
     @ApiOperation(value = "Post an experience")
     @PostMapping(value = "/Experiences")
     public ResponseEntity<ExperienceDto> post(@Valid @RequestBody ExperienceDco experienceDco) {
-        return ResponseEntity.ok().body(experienceServiceImpl.postExperience(ConverterHelper.convertToEntity(experienceDco, modelMapper, locationRepository, organisationRepository)));
+        return ResponseEntity.ok().body(experienceServiceImpl.postExperience(ConverterHelper.convertToEntity(experienceDco, locationRepository, organisationRepository)));
     }
 
     @CrossOrigin()

@@ -6,8 +6,6 @@ import com.resume.dto.CompetenceDto;
 import com.resume.model.Competence;
 import com.resume.model.enums.CompetenceTypeEnum;
 import com.resume.repository.CompetenceRepository;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -17,34 +15,31 @@ import java.util.List;
 @Transactional
 public class CompetenceServiceImpl implements ICompetenceService {
 
-    @Autowired
-    private CompetenceRepository competenceRepository;
+    private final CompetenceRepository competenceRepository;
 
-    private ModelMapper modelMapper;
-
-    public CompetenceServiceImpl(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
+    public CompetenceServiceImpl(CompetenceRepository competenceRepository) {
+        this.competenceRepository = competenceRepository;
     }
 
     @Override
     public List<CompetenceDto> getAllCompetences() {
-        return ConverterHelper.convertToCompetenceListDto(competenceRepository.findAll(), modelMapper);
+        return ConverterHelper.convertToCompetenceListDto(competenceRepository.findAll());
     }
 
     @Override
     public List<CompetenceDto> getCompetencesByType(CompetenceTypeEnum competenceType) {
-        return ConverterHelper.convertToCompetenceListDto(competenceRepository.findAllByCompetenceTypeEnum(competenceType), modelMapper);
+        return ConverterHelper.convertToCompetenceListDto(competenceRepository.findAllByCompetenceTypeEnum(competenceType));
     }
 
 
     @Override
     public CompetenceDto postCompetence(Competence competence) {
-        return ConverterHelper.convertToDto(competenceRepository.save(competence), modelMapper);
+        return ConverterHelper.convertToDto(competenceRepository.save(competence));
     }
 
     @Override
     public CompetenceDto putCompetence(Competence competence) {
-        return ConverterHelper.convertToDto(competenceRepository.save(competence), modelMapper);
+        return ConverterHelper.convertToDto(competenceRepository.save(competence));
     }
 
     @Override
@@ -53,7 +48,7 @@ public class CompetenceServiceImpl implements ICompetenceService {
         if(competence == null) {
             return null;
         }
-        return ConverterHelper.convertToDto(competence, modelMapper);
+        return ConverterHelper.convertToDto(competence);
     }
 
     @Override

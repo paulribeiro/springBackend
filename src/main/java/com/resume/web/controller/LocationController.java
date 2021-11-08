@@ -12,7 +12,6 @@ import com.resume.web.exceptions.NoContentException;
 import com.resume.web.exceptions.UnexpectedCompetenceException;
 import com.resume.web.exceptions.UnexpectedLocationException;
 import io.swagger.annotations.ApiOperation;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -34,14 +33,11 @@ public class LocationController {
 
     private final IExperienceService experienceService;
 
-    private final ModelMapper modelMapper;
-
     public LocationController(ILocationService locationService, IFormationService formationService,
-                              IExperienceService experienceService, ModelMapper modelMapper) {
+                              IExperienceService experienceService) {
         this.locationService = locationService;
         this.formationService = formationService;
         this.experienceService = experienceService;
-        this.modelMapper = modelMapper;
     }
 
     @CrossOrigin()
@@ -69,7 +65,7 @@ public class LocationController {
     @ApiOperation(value = "Post a location")
     @PostMapping(value = "/Locations")
     public ResponseEntity<LocationDto> post(@Valid @RequestBody LocationDco locationDco) {
-        return ResponseEntity.ok().body(locationService.postLocation(ConverterHelper.convertToEntity(locationDco, modelMapper)));
+        return ResponseEntity.ok().body(locationService.postLocation(ConverterHelper.convertToEntity(locationDco)));
     }
 
     @CrossOrigin()

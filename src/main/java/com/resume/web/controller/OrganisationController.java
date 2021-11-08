@@ -1,18 +1,13 @@
 package com.resume.web.controller;
 
-import com.resume.converter.ConverterHelper;
-import com.resume.dco.OrganisationDco;
 import com.resume.dto.OrganisationDto;
-import com.resume.model.Location;
 import com.resume.model.Organisation;
 import com.resume.repository.OrganisationRepository;
 import com.resume.web.exceptions.NoContentException;
 import com.resume.web.exceptions.UnexpectedCompetenceException;
-import com.resume.web.exceptions.UnexpectedLocationException;
 import com.resume.web.exceptions.UnexpectedOrganisationException;
 import com.resume.web.serviceImpl.OrganisationServiceImpl;
 import io.swagger.annotations.ApiOperation;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +21,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -40,12 +33,9 @@ public class OrganisationController {
 
     private OrganisationRepository organisationRepository;
 
-    private ModelMapper modelMapper;
-
-    public OrganisationController(OrganisationServiceImpl organisationService, OrganisationRepository organisationRepository, ModelMapper modelMapper) {
+    public OrganisationController(OrganisationServiceImpl organisationService, OrganisationRepository organisationRepository) {
         this.organisationService = organisationService;
         this.organisationRepository = organisationRepository;
-        this.modelMapper = modelMapper;
     }
 
     @CrossOrigin()

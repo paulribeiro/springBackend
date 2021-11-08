@@ -3,11 +3,8 @@ package com.resume.web.serviceImpl;
 import com.resume.Services.IExperienceService;
 import com.resume.converter.ConverterHelper;
 import com.resume.dto.ExperienceDto;
-import com.resume.dto.FormationDto;
 import com.resume.model.Experience;
 import com.resume.repository.ExperienceRepository;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,37 +12,34 @@ import java.util.List;
 @Service
 public class ExperienceServiceImpl implements IExperienceService {
 
-    @Autowired
-    private ExperienceRepository experienceRepository;
+    private final ExperienceRepository experienceRepository;
 
-    private ModelMapper modelMapper;
-
-    public ExperienceServiceImpl(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
+    public ExperienceServiceImpl(ExperienceRepository experienceRepository) {
+        this.experienceRepository = experienceRepository;
     }
 
     @Override
     public List<ExperienceDto> getAllExperiences() {
-        return ConverterHelper.convertToExperienceListDto(experienceRepository.findAll(), modelMapper);
+        return ConverterHelper.convertToExperienceListDto(experienceRepository.findAll());
     }
 
     @Override
     public ExperienceDto postExperience(Experience experience) {
-        return ConverterHelper.convertToDto(experienceRepository.save(experience), modelMapper);
+        return ConverterHelper.convertToDto(experienceRepository.save(experience));
     }
 
     @Override
     public ExperienceDto putExperience(Experience experience) {
-        return ConverterHelper.convertToDto(experienceRepository.save(experience), modelMapper);
+        return ConverterHelper.convertToDto(experienceRepository.save(experience));
     }
 
     @Override
     public ExperienceDto getExperience(Integer experienceId) {
-        return ConverterHelper.convertToDto(experienceRepository.findByExperienceId(experienceId), modelMapper);
+        return ConverterHelper.convertToDto(experienceRepository.findByExperienceId(experienceId));
     }
 
     @Override
     public List<ExperienceDto> getExperienceLinkedToLocation(Integer locationId) {
-        return ConverterHelper.convertToExperienceListDto(experienceRepository.findByLocation_LocationId(locationId), modelMapper);
+        return ConverterHelper.convertToExperienceListDto(experienceRepository.findByLocation_LocationId(locationId));
     }
 }
