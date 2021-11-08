@@ -3,10 +3,13 @@ package com.resume.web.controller;
 import com.resume.converter.ConverterHelper;
 import com.resume.dco.OrganisationDco;
 import com.resume.dto.OrganisationDto;
+import com.resume.model.Location;
 import com.resume.model.Organisation;
 import com.resume.repository.OrganisationRepository;
 import com.resume.web.exceptions.NoContentException;
+import com.resume.web.exceptions.UnexpectedCompetenceException;
 import com.resume.web.exceptions.UnexpectedLocationException;
+import com.resume.web.exceptions.UnexpectedOrganisationException;
 import com.resume.web.serviceImpl.OrganisationServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.modelmapper.ModelMapper;
@@ -14,14 +17,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @RestController
 public class OrganisationController {
 
     public static final Logger logger = LoggerFactory.getLogger(OrganisationController.class);
+    private static final String DIR_TO_UPLOAD = "./assets/organisations/";
 
     private OrganisationServiceImpl organisationService;
 
@@ -45,26 +58,54 @@ public class OrganisationController {
     @CrossOrigin()
     @ApiOperation(value = "Post an organisation")
     @PostMapping(value = "/Organisations")
-    public ResponseEntity<OrganisationDto> post(@Valid @RequestBody OrganisationDco organisationDco) {
-        return ResponseEntity.ok().body(organisationService.postOrganisation(ConverterHelper.convertToEntity(organisationDco, modelMapper)));
+    public ResponseEntity<OrganisationDto> post(@Valid @RequestParam String organisationName, @RequestParam MultipartFile image)  throws IOException {
+
+        if(image != null) {
+            byte[] bytes = image.getBytes();
+            String fileName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+            try {
+                Path path = Paths.get(DIR_TO_UPLOAD + fileName);
+                Files.write(path, bytes, StandardOpenOption.CREATE_NEW);
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body(new OrganisationDto(organisationName, fileName));
+            }
+            return ResponseEntity.ok().body(organisationService.postOrganisation(new Organisation(organisationName, fileName)));
+        } else {
+            return ResponseEntity.badRequest().body(new OrganisationDto(organisationName));
+        }
     }
 
     @CrossOrigin()
     @ApiOperation(value = "Update an Organisation")
-    @PutMapping(value = "/Organisations")
-    public ResponseEntity<OrganisationDto> put(@Valid @RequestBody OrganisationDco organisationDco) {
-        logger.info("Updating organisation with id {}", organisationDco.getOrganisationId());
-        Organisation currentOrganisation = organisationRepository.findByOrganisationId(organisationDco.getOrganisationId());
+    @PutMapping(value = "/Organisations/{organisationId}")
+    public ResponseEntity<OrganisationDto> put(@PathVariable Integer organisationId,
+                                               @Valid @RequestParam String organisationName, @RequestParam MultipartFile image) throws IOException {
+
+        logger.info("Updating organisation with id {}", organisationId);
+        Organisation currentOrganisation = organisationRepository.findByOrganisationId(organisationId);
 
         if (currentOrganisation == null) {
-            logger.error("Unable to update. Organisation with id {} not found.", organisationDco.getOrganisationId());
-            throw new UnexpectedLocationException("Unable to upate. Organisation with id " + organisationDco.getOrganisationId() + " not found.");
+            logger.error("Unable to update. Organisation with id {} not found.", organisationId);
+            throw new UnexpectedOrganisationException("Unable to upate Organisation with id " + organisationId + " not found.");
         }
+        currentOrganisation.setOrganisationName(organisationName);
 
-        currentOrganisation.setLogoAddress(organisationDco.getLogoAddress());
-        currentOrganisation.setOrganisationName(organisationDco.getOrganisationName());
-
-        return ResponseEntity.ok().body(organisationService.putOrganisation(currentOrganisation));
+        if(image != null) {
+            byte[] bytes = image.getBytes();
+            String fileName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+            try {
+                Path path = Paths.get(DIR_TO_UPLOAD + fileName);
+                Files.write(path, bytes, StandardOpenOption.CREATE_NEW);
+                Path pathToDelete = Paths.get(DIR_TO_UPLOAD + currentOrganisation.getLogoAddress());
+                Files.deleteIfExists(pathToDelete);
+                currentOrganisation.setLogoAddress(fileName);
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body(new OrganisationDto(organisationName, fileName));
+            }
+            return ResponseEntity.ok().body(organisationService.putOrganisation(currentOrganisation));
+        } else {
+            return ResponseEntity.badRequest().body(new OrganisationDto(organisationName));
+        }
     }
 
     @CrossOrigin()
@@ -81,6 +122,58 @@ public class OrganisationController {
         }
 
         return ResponseEntity.ok().body(organisationDto);
+    }
+
+    @CrossOrigin()
+    @ApiOperation(value = "Get the picture of the organisation")
+    @GetMapping(value = "/Organisations/picture/{organisationId}")
+    @ResponseBody
+    public ResponseEntity<byte[]> getImage(@PathVariable int organisationId) throws IOException {
+
+        logger.info("getting organisation with id {}", organisationId);
+        OrganisationDto organisationDto = organisationService.getOrganisationbyId(organisationId);
+
+        if(organisationDto == null) {
+            logger.error("Unable to get organisation with id {} not found.", organisationId);
+            throw new NoContentException("Unable to get location with id " + organisationId + " not found.");
+        }
+
+        String filename = organisationDto.getLogoAddress();
+        logger.info("searching for picture: {}", filename);
+
+        File serverFile = new File(DIR_TO_UPLOAD + filename);
+
+        return ResponseEntity.ok().body(Files.readAllBytes(serverFile.toPath()));
+    }
+
+    @CrossOrigin()
+    @ApiOperation(value = "Delete an organisation")
+    @DeleteMapping(value = "/Organisations/{organisationId}")
+    public ResponseEntity<OrganisationDto> delete(@PathVariable Integer organisationId) {
+        logger.info("Deleting organisation with id {}", organisationId);
+        OrganisationDto organisationToDelete = organisationService.getOrganisationbyId(organisationId);
+
+        if(organisationToDelete == null) {
+            logger.error("Unable to get organisation with id {} not found.", organisationId);
+            throw new NoContentException("Unable to get location with id " + organisationId + " not found.");
+        }
+
+        //TODO: key in dependent objects. Experience...
+
+        Integer organisationDeletedId  = organisationService.deleteOrganisation(organisationId);
+
+        if(organisationDeletedId == 0) {
+            throw new UnexpectedCompetenceException("Unable to delete. Organisation with id " + organisationId + " not found.");
+        } else {
+            try {
+                Path path = Paths.get(DIR_TO_UPLOAD + organisationToDelete.getLogoAddress());
+                Files.deleteIfExists(path);
+            } catch (Exception e) {
+                logger.warn("no picture was deleted while deleting the organisation: {} - {} - {}", organisationDeletedId,
+                        organisationToDelete.getOrganisationName(), organisationToDelete.getLogoAddress());
+            }
+        }
+        return ResponseEntity.ok().body(organisationToDelete);
     }
 
 }
