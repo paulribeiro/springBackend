@@ -36,7 +36,7 @@ public interface IOrganisationService {
      * @param organisation : organisation to be modified
      * @return the organisation as it was modified.
      */
-    OrganisationDto putOrganisation(Organisation organisation);
+    OrganisationDto putOrganisation(OrganisationDto organisation);
 
     /**
      * Method used to delete an organisation by Id.

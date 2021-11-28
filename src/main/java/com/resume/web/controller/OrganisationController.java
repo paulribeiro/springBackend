@@ -1,18 +1,21 @@
 package com.resume.web.controller;
 
+import com.resume.Services.IExperienceService;
+import com.resume.Services.IOrganisationService;
+import com.resume.dto.ExperienceDto;
 import com.resume.dto.OrganisationDto;
 import com.resume.model.Organisation;
-import com.resume.repository.OrganisationRepository;
 import com.resume.web.exceptions.NoContentException;
 import com.resume.web.exceptions.UnexpectedCompetenceException;
 import com.resume.web.exceptions.UnexpectedOrganisationException;
-import com.resume.web.serviceImpl.OrganisationServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.io.File;
@@ -29,13 +32,13 @@ public class OrganisationController {
     public static final Logger logger = LoggerFactory.getLogger(OrganisationController.class);
     private static final String DIR_TO_UPLOAD = "./assets/organisations/";
 
-    private OrganisationServiceImpl organisationService;
+    private final IOrganisationService organisationService;
 
-    private OrganisationRepository organisationRepository;
+    private final IExperienceService experienceService;
 
-    public OrganisationController(OrganisationServiceImpl organisationService, OrganisationRepository organisationRepository) {
+    public OrganisationController(IOrganisationService organisationService, IExperienceService experienceService) {
         this.organisationService = organisationService;
-        this.organisationRepository = organisationRepository;
+        this.experienceService = experienceService;
     }
 
     @CrossOrigin()
@@ -72,7 +75,7 @@ public class OrganisationController {
                                                @Valid @RequestParam String organisationName, @RequestParam MultipartFile image) throws IOException {
 
         logger.info("Updating organisation with id {}", organisationId);
-        Organisation currentOrganisation = organisationRepository.findByOrganisationId(organisationId);
+        OrganisationDto currentOrganisation = organisationService.getOrganisationbyId(organisationId);
 
         if (currentOrganisation == null) {
             logger.error("Unable to update. Organisation with id {} not found.", organisationId);
@@ -148,7 +151,15 @@ public class OrganisationController {
             throw new NoContentException("Unable to get location with id " + organisationId + " not found.");
         }
 
-        //TODO: key in dependent objects. Experience...
+        List<ExperienceDto> experienceLinkedToOrganisation = experienceService.getExperienceLinkedToOrganisation(organisationToDelete.getOrganisationId());
+        if (experienceLinkedToOrganisation != null && !experienceLinkedToOrganisation.isEmpty())  {
+            String dependantExperience = experienceLinkedToOrganisation.stream()
+                    .map(ExperienceDto::toString)
+                    .reduce("\n", String::concat);
+            throw new ResponseStatusException(HttpStatus.CONFLICT,
+                    "There are some experiences still linked to the organisation you want to delete.\n" +
+                            "Please delete the link to the following elements and try again later:\n" + dependantExperience);
+        }
 
         Integer organisationDeletedId  = organisationService.deleteOrganisation(organisationId);
 

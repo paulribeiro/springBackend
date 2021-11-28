@@ -40,7 +40,15 @@ public class OrganisationServiceImpl implements IOrganisationService {
     }
 
     @Override
-    public OrganisationDto putOrganisation(Organisation organisation) {
+    public OrganisationDto putOrganisation(OrganisationDto organisationdto) {
+
+        Organisation organisation = organisationRepository.findByOrganisationId(organisationdto.getOrganisationId());
+        if(organisation == null) {
+            return null;
+        }
+        organisation.setOrganisationName(organisationdto.getOrganisationName());
+        organisation.setLogoAddress(organisationdto.getLogoAddress());
+
         return ConverterHelper.convertToDto(organisationRepository.save(organisation));
     }
 

@@ -42,4 +42,9 @@ public class ExperienceServiceImpl implements IExperienceService {
     public List<ExperienceDto> getExperienceLinkedToLocation(Integer locationId) {
         return ConverterHelper.convertToExperienceListDto(experienceRepository.findByLocation_LocationId(locationId));
     }
+
+    @Override
+    public List<ExperienceDto> getExperienceLinkedToOrganisation(Integer organisationId) {
+        return ConverterHelper.convertToExperienceListDto(experienceRepository.findByOrganisation_OrganisationId(organisationId));
+    }
 }
