@@ -31,12 +31,12 @@ public interface ICompetenceService {
     CompetenceDto postCompetence(Competence competence);
 
     /**
-     * Method used to ,odify a competence.
+     * Method used to modify a competence.
      *
-     * @param competence : competence to be modified
+     * @param competenceDto : competence to be modified
      * @return the competence as it was modified.
      */
-    CompetenceDto putCompetence(Competence competence);
+    CompetenceDto putCompetence(CompetenceDto competenceDto);
 
     /**
      * Method used to get a competence by Id.

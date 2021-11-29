@@ -1,11 +1,10 @@
 package com.resume.model;
 
-import com.resume.model.enums.ExperienceTypeEnum;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.resume.model.enums.ProjectTypeEnum;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -41,6 +40,7 @@ public class Project {
             name = "RES_PROJECTCOMPETENCE",
             joinColumns = @JoinColumn(name = "projectId"),
             inverseJoinColumns = @JoinColumn(name = "competenceId"))
+    @JsonManagedReference
     private Set<Competence> competencesForProject;
 
     public Project(Integer projectId, Experience experience, String description, String title, String linkToProject, ProjectTypeEnum projectType) {

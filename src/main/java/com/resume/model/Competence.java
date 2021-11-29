@@ -1,5 +1,6 @@
 package com.resume.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.resume.model.enums.CompetenceEvaluationEnum;
 import com.resume.model.enums.CompetenceTypeEnum;
 
@@ -29,7 +30,15 @@ public class Competence {
     private CompetenceTypeEnum competenceTypeEnum;
 
     @ManyToMany(mappedBy = "competencesForProject")
+    @JsonBackReference
     private Set<Project> projects;
+
+    @PreRemove
+    private void removeCompetencesFromProjects() {
+        for (Project p : projects) {
+            p.getCompetencesForProject().remove(this);
+        }
+    }
 
     public Competence() {
     }
@@ -75,6 +84,14 @@ public class Competence {
 
     public void setCompetenceDescription(String competenceDescription) {
         this.competenceDescription = competenceDescription;
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
     }
 
     @Override

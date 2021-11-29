@@ -38,7 +38,17 @@ public class CompetenceServiceImpl implements ICompetenceService {
     }
 
     @Override
-    public CompetenceDto putCompetence(Competence competence) {
+    public CompetenceDto putCompetence(CompetenceDto competenceDto) {
+
+        Competence competence = competenceRepository.findByCompetenceId(competenceDto.getCompetenceId());
+        if(competence == null) {
+            return null;
+        }
+        competence.setCompetenceTitle(competenceDto.getCompetenceTitle());
+        competence.setCompetenceDescription(competenceDto.getCompetenceDescription());
+        competence.setCompetenceTypeEnum(competenceDto.getCompetenceTypeEnum());
+        competence.setEvaluation(competenceDto.getEvaluation());
+
         return ConverterHelper.convertToDto(competenceRepository.save(competence));
     }
 

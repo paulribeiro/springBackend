@@ -3,9 +3,7 @@ package com.resume.web.controller;
 import com.resume.converter.ConverterHelper;
 import com.resume.dco.CompetenceDco;
 import com.resume.dto.CompetenceDto;
-import com.resume.model.Competence;
 import com.resume.model.enums.CompetenceTypeEnum;
-import com.resume.repository.CompetenceRepository;
 import com.resume.web.exceptions.NoContentException;
 import com.resume.web.exceptions.UnexpectedCompetenceException;
 import com.resume.web.serviceImpl.CompetenceServiceImpl;
@@ -25,11 +23,8 @@ public class CompetenceController {
 
     private final CompetenceServiceImpl competenceService;
 
-    private final CompetenceRepository competenceRepository;
-
-    public CompetenceController(CompetenceServiceImpl competenceService, CompetenceRepository competenceRepository) {
+    public CompetenceController(CompetenceServiceImpl competenceService) {
         this.competenceService = competenceService;
-        this.competenceRepository = competenceRepository;
     }
 
     @CrossOrigin()
@@ -71,7 +66,7 @@ public class CompetenceController {
     public ResponseEntity<CompetenceDto> put(@Valid @RequestBody CompetenceDco competenceDco) {
         logger.info("Updating competence with id {}", competenceDco.getCompetenceId());
 
-        Competence currentCompetence = competenceRepository.findByCompetenceId(competenceDco.getCompetenceId());
+        CompetenceDto currentCompetence = competenceService.getCompetence(competenceDco.getCompetenceId());
 
         if (currentCompetence == null) {
             logger.error("Unable to update. competence with id {} not found.", competenceDco.getCompetenceId());
@@ -89,12 +84,16 @@ public class CompetenceController {
     @CrossOrigin()
     @ApiOperation(value = "Delete a competence")
     @DeleteMapping(value = "/Competences/{competenceId}")
-    public ResponseEntity<Competence> delete(@PathVariable Integer competenceId) {
+    public ResponseEntity<CompetenceDto> delete(@PathVariable Integer competenceId) {
         logger.info("Deleting competence with id {}", competenceId);
-        Competence competenceToDelete = competenceRepository.findByCompetenceId(competenceId);
-        Integer deletedCompetence  = competenceService.deleteCompetence(competenceId);
+        CompetenceDto competenceToDelete = competenceService.getCompetence(competenceId);
 
-        if(deletedCompetence == 0) {
+        if(competenceToDelete != null) {
+            Integer deletedCompetenceId = competenceService.deleteCompetence(competenceId);
+            if (deletedCompetenceId == 0) {
+                throw new UnexpectedCompetenceException("Unable to delete. Competence with id " + competenceId + " not found.");
+            }
+        } else {
             throw new UnexpectedCompetenceException("Unable to delete. Competence with id " + competenceId + " not found.");
         }
         return ResponseEntity.ok().body(competenceToDelete);
