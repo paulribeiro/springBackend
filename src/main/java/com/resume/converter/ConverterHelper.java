@@ -3,12 +3,9 @@ package com.resume.converter;
 import com.resume.dco.*;
 import com.resume.dto.*;
 import com.resume.model.*;
-import com.resume.repository.CompetenceRepository;
-import com.resume.repository.ExperienceRepository;
 import com.resume.repository.LocationRepository;
 import com.resume.repository.OrganisationRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -183,24 +180,12 @@ public class ConverterHelper {
         return projectDtoList;
     }
 
-    public static Project convertToEntity(ProjectDco projectDco, ExperienceRepository experienceRepository, CompetenceRepository competenceRepository) {
+    public static Project convertToEntity(ProjectDco projectDco, Experience experienceAttachedToProject, Set<Competence> competenceForProject) {
         Project project = modelMapper.map(projectDco, Project.class);
-        if(projectDco.getExperienceId() != null) {
-            Experience experienceAttachedToProject = experienceRepository.findByExperienceId(projectDco.getExperienceId());
-            if(experienceAttachedToProject != null) {
-                project.setExperience(experienceAttachedToProject);
-            }
+        if(experienceAttachedToProject != null) {
+            project.setExperience(experienceAttachedToProject);
         }
-        if(!CollectionUtils.isEmpty(projectDco.getCompetenceIds())) {
-            Set<Competence> competenceForProject = Collections.EMPTY_SET;
-            try {
-                competenceForProject = projectDco.getCompetenceIds().stream().map(id -> competenceRepository.findByCompetenceId(id)).collect(Collectors.toSet());
-            }
-            catch (Exception e) {
-                return null;
-            }
-            project.setCompetencesForProject(competenceForProject);
-        }
+        project.setCompetencesForProject(competenceForProject);
         return project;
     }
 }

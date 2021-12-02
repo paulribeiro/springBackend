@@ -1,7 +1,8 @@
 package com.resume.Services;
 
+import com.resume.dco.ProjectDco;
 import com.resume.dto.ProjectDto;
-import com.resume.model.Project;
+
 import java.util.List;
 
 public interface IProjectService {
@@ -19,7 +20,7 @@ public interface IProjectService {
      * @param project : project to be saved
      * @return the project as it was saved.
      */
-    ProjectDto postProject(Project project);
+    ProjectDto postProject(ProjectDco project);
 
     /**
      * Method used to modify a project.
@@ -27,7 +28,7 @@ public interface IProjectService {
      * @param project : project to be modified
      * @return the project modified.
      */
-    ProjectDto putProject(Project project);
+    ProjectDto putProject(ProjectDco project);
 
     /**
      * Method used to get a project by its Id.
