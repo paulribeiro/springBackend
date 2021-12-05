@@ -39,9 +39,14 @@ public class ExperienceServiceImpl implements IExperienceService {
 
     @Override
     public ExperienceDto postExperience(ExperienceDco experienceDco) {
-        Location location = locationRepository.findByLocationId(experienceDco.getLocationId());
-        Organisation organisation = organisationRepository.findByOrganisationId(experienceDco.getOrganisationId());
-
+        Location location = null;
+        Organisation organisation = null;
+        if(experienceDco.getLocationId() != null) {
+            location = locationRepository.findByLocationId(experienceDco.getLocationId());
+        }
+        if(experienceDco.getOrganisationId() != null) {
+            organisation = organisationRepository.findByOrganisationId(experienceDco.getOrganisationId());
+        }
         Experience experience = ConverterHelper.convertToEntity(experienceDco, location, organisation);
 
         return ConverterHelper.convertToDto(experienceRepository.save(experience));

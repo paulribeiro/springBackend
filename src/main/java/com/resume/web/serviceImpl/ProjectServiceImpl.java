@@ -59,7 +59,10 @@ public class ProjectServiceImpl implements IProjectService {
             }
         }
 
-        Experience experience = experienceRepository.findByExperienceId(project.getExperienceId());
+        Experience experience = null;
+        if(project.getExperienceId() != null) {
+            experience = experienceRepository.findByExperienceId(project.getExperienceId());
+        }
 
         return ConverterHelper.convertToDto(projectRepository.save(ConverterHelper.convertToEntity(project, experience, competences)));
     }
