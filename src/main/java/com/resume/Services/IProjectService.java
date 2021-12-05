@@ -45,4 +45,13 @@ public interface IProjectService {
      * @return the projectId which was deleted
      */
     Integer deleteProject(Integer projectId);
+
+    /**
+     * Method used to find all projects currently linked to a given experienceId.
+     *
+     * @param experienceId : id of the experience to search.
+     * @return the projects which are attached to the given experienceId
+     */
+    List<ProjectDto> getProjectLinkedToExperience(Integer experienceId);
+
 }

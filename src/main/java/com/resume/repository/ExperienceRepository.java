@@ -17,7 +17,7 @@ public interface ExperienceRepository extends JpaRepository<Experience, Integer>
 
     Experience findByExperienceId(int id);
 
-    void deleteExperienceByExperienceId(int id);
+    Integer deleteExperienceByExperienceId(int id);
 
     Experience save(Experience experience);
 

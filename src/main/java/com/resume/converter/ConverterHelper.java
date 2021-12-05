@@ -3,8 +3,6 @@ package com.resume.converter;
 import com.resume.dco.*;
 import com.resume.dto.*;
 import com.resume.model.*;
-import com.resume.repository.LocationRepository;
-import com.resume.repository.OrganisationRepository;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
@@ -45,10 +43,14 @@ public class ConverterHelper {
         return experienceDtoList;
     }
 
-    public static Experience convertToEntity(ExperienceDco experienceDco, LocationRepository locationRepository, OrganisationRepository organisationRepository) {
+    public static Experience convertToEntity(ExperienceDco experienceDco, Location location, Organisation organisation) {
         Experience experience = modelMapper.map(experienceDco, Experience.class);
-        experience.setLocation(locationRepository.findByLocationId(experienceDco.getLocationId()));
-        experience.setOrganisation(organisationRepository.findByOrganisationId(experienceDco.getOrganisationId()));
+        if(location != null) {
+            experience.setLocation(location);
+        }
+        if(organisation != null) {
+            experience.setOrganisation(organisation);
+        }
         return experience;
     }
 

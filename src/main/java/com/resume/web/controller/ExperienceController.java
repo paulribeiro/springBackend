@@ -1,21 +1,20 @@
 package com.resume.web.controller;
 
-import com.resume.converter.ConverterHelper;
+import com.resume.Services.IExperienceService;
+import com.resume.Services.IProjectService;
 import com.resume.dco.ExperienceDco;
 import com.resume.dto.ExperienceDto;
-import com.resume.model.Experience;
-import com.resume.model.enums.ExperienceTypeEnum;
-import com.resume.repository.ExperienceRepository;
-import com.resume.repository.LocationRepository;
-import com.resume.repository.OrganisationRepository;
+import com.resume.dto.ProjectDto;
 import com.resume.web.exceptions.NoContentException;
+import com.resume.web.exceptions.UnexpectedCompetenceException;
 import com.resume.web.exceptions.UnexpectedExperienceException;
-import com.resume.web.serviceImpl.ExperienceServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -23,21 +22,15 @@ import java.util.List;
 @RestController
 public class ExperienceController {
 
-    private ExperienceServiceImpl experienceServiceImpl;
+    private final IExperienceService experienceService;
 
-    private ExperienceRepository experienceRepository;
-
-    private LocationRepository locationRepository;
-
-    private OrganisationRepository organisationRepository;
+    private final IProjectService projectService;
 
     public static final Logger logger = LoggerFactory.getLogger(ExperienceController.class);
 
-    public ExperienceController(ExperienceServiceImpl experienceServiceImpl, ExperienceRepository experienceRepository, LocationRepository locationRepository, OrganisationRepository organisationRepository) {
-        this.experienceServiceImpl = experienceServiceImpl;
-        this.experienceRepository = experienceRepository;
-        this.locationRepository = locationRepository;
-        this.organisationRepository = organisationRepository;
+    public ExperienceController(IExperienceService experienceService, IProjectService projectService) {
+        this.experienceService = experienceService;
+        this.projectService = projectService;
     }
 
 
@@ -45,14 +38,14 @@ public class ExperienceController {
     @ApiOperation(value = "Get all the experiences")
     @GetMapping(value = "/Experiences")
     public ResponseEntity<List<ExperienceDto>> get() {
-        return ResponseEntity.ok().body(experienceServiceImpl.getAllExperiences());
+        return ResponseEntity.ok().body(experienceService.getAllExperiences());
     }
 
     @CrossOrigin()
     @ApiOperation(value = "Get a given experience")
     @GetMapping(value = "/Experiences/{experienceId}")
     public ResponseEntity<ExperienceDto> get(@PathVariable int experienceId) {
-        ExperienceDto experienceDto = experienceServiceImpl.getExperience(experienceId);
+        ExperienceDto experienceDto = experienceService.getExperience(experienceId);
         if(experienceDto == null) {
             logger.error("Unable to fin experience with id {} not found.", experienceId);
             throw new NoContentException("Unable to get experience with id " + experienceId + " not found.");
@@ -64,7 +57,7 @@ public class ExperienceController {
     @ApiOperation(value = "Post an experience")
     @PostMapping(value = "/Experiences")
     public ResponseEntity<ExperienceDto> post(@Valid @RequestBody ExperienceDco experienceDco) {
-        return ResponseEntity.ok().body(experienceServiceImpl.postExperience(ConverterHelper.convertToEntity(experienceDco, locationRepository, organisationRepository)));
+        return ResponseEntity.ok().body(experienceService.postExperience(experienceDco));
     }
 
     @CrossOrigin()
@@ -72,23 +65,42 @@ public class ExperienceController {
     @PutMapping(value = "/Experiences")
     public ResponseEntity<ExperienceDto> put(@Valid @RequestBody ExperienceDco experienceDco) {
         logger.info("Updating Experience with id {}", experienceDco.getExperienceId());
+        ExperienceDto updatedExperience = experienceService.putExperience(experienceDco);
 
-        Experience currentExperience = experienceRepository.findByExperienceId(experienceDco.getExperienceId());
-
-        if (currentExperience == null) {
+        if (updatedExperience == null) {
             logger.error("Unable to update. Experience with id {} not found.", experienceDco.getExperienceId());
-            throw new UnexpectedExperienceException("Unable to upate. User with id " + experienceDco.getExperienceId() + " not found.");
+            throw new UnexpectedExperienceException("Unable to upate. Experience with id " + experienceDco.getExperienceId() + " not found.");
         }
 
-        currentExperience.setDescription(experienceDco.getDescription());
-        currentExperience.setEndDate(experienceDco.getEndDate());
-        currentExperience.setStartDate(experienceDco.getStartDate());
-        currentExperience.setExperienceType(ExperienceTypeEnum.valueOf(experienceDco.getExperienceType()));
-        currentExperience.setOrganisation(organisationRepository.findByOrganisationId(experienceDco.getOrganisationId()));
-        currentExperience.setLocation(locationRepository.findByLocationId(experienceDco.getLocationId()));
-        currentExperience.setTitle(experienceDco.getTitle());
+        return ResponseEntity.ok().body(updatedExperience);
+    }
 
-        return ResponseEntity.ok().body(experienceServiceImpl.putExperience(currentExperience));
+    @CrossOrigin()
+    @ApiOperation(value = "Delete an experience")
+    @DeleteMapping(value = "/Experiences/{experienceId}")
+    public ResponseEntity<ExperienceDto> delete(@PathVariable Integer experienceId) {
+        logger.info("Deleting experience with id {}", experienceId);
+        ExperienceDto experienceToDelete = experienceService.getExperience(experienceId);
+
+        if(experienceToDelete == null) {
+            throw new UnexpectedCompetenceException("Unable to delete. Experience with id " + experienceId + " not found.");
+        }
+
+        List<ProjectDto> projectLinkedToExperience = projectService.getProjectLinkedToExperience(experienceToDelete.getExperienceId());
+        if (projectLinkedToExperience != null && !projectLinkedToExperience.isEmpty())  {
+            String dependantProjects = projectLinkedToExperience.stream()
+                    .map(ProjectDto::toString)
+                    .reduce("\n", String::concat);
+            throw new ResponseStatusException(HttpStatus.CONFLICT,
+                    "There are some projects still linked to the experience you want to delete.\n" +
+                            "Please delete the link to the following elements and try again later:\n" + dependantProjects);
+        }
+
+        Integer deletedExperience  = experienceService.deleteExperience(experienceId);
+        if(deletedExperience == 0) {
+            throw new UnexpectedCompetenceException("Unable to delete. Experience with id " + experienceId + " not found.");
+        }
+        return ResponseEntity.ok().body(experienceToDelete);
     }
 
 }

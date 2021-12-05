@@ -18,4 +18,6 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
     Integer deleteProjectByProjectId(int id);
 
     Project save(Project project);
+
+    List<Project> findByExperience_ExperienceId(Integer experienceId);
 }

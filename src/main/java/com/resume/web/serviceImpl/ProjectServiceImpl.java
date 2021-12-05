@@ -5,6 +5,7 @@ import com.resume.converter.ConverterHelper;
 import com.resume.dco.ProjectDco;
 import com.resume.dto.ProjectDto;
 import com.resume.model.Competence;
+import com.resume.model.Experience;
 import com.resume.model.Project;
 import com.resume.model.enums.ProjectTypeEnum;
 import com.resume.repository.CompetenceRepository;
@@ -57,7 +58,10 @@ public class ProjectServiceImpl implements IProjectService {
                 throw new UnexpectedCompetenceException("Unable to create Project due to missing Competence. Competence with id " + competenceId + " not found.");
             }
         }
-        return ConverterHelper.convertToDto(projectRepository.save(ConverterHelper.convertToEntity(project, null, competences)));
+
+        Experience experience = experienceRepository.findByExperienceId(project.getExperienceId());
+
+        return ConverterHelper.convertToDto(projectRepository.save(ConverterHelper.convertToEntity(project, experience, competences)));
     }
 
     @Override
@@ -88,5 +92,10 @@ public class ProjectServiceImpl implements IProjectService {
     @Override
     public Integer deleteProject(Integer projectId) {
         return projectRepository.deleteProjectByProjectId(projectId);
+    }
+
+    @Override
+    public List<ProjectDto> getProjectLinkedToExperience(Integer experienceId) {
+        return ConverterHelper.convertToProjectListDto(projectRepository.findByExperience_ExperienceId(experienceId));
     }
 }

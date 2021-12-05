@@ -1,7 +1,7 @@
 package com.resume.Services;
 
+import com.resume.dco.ExperienceDco;
 import com.resume.dto.ExperienceDto;
-import com.resume.model.Experience;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public interface IExperienceService {
      * @param experience : experience to be saved
      * @return the experience as it was saved.
      */
-    ExperienceDto postExperience(Experience experience);
+    ExperienceDto postExperience(ExperienceDco experience);
 
     /**
      * Method used to modify an experience.
@@ -28,7 +28,7 @@ public interface IExperienceService {
      * @param experience : experience to be modified
      * @return the experience modified.
      */
-    ExperienceDto putExperience(Experience experience);
+    ExperienceDto putExperience(ExperienceDco experience);
 
     /**
      * Method used to get an experience by its Id.
@@ -53,5 +53,13 @@ public interface IExperienceService {
      * @return the experiences which are attached to the given organisationId
      */
     List<ExperienceDto> getExperienceLinkedToOrganisation(Integer organisationId);
+
+    /**
+     * Method used to delete an experience by Id.
+     *
+     * @param experienceId : id of the experience to delete.
+     * @return the experience id which was deleted
+     */
+    Integer deleteExperience(Integer experienceId);
 
 }
