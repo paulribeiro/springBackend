@@ -1,8 +1,23 @@
 package com.resume.converter;
 
-import com.resume.dco.*;
-import com.resume.dto.*;
-import com.resume.model.*;
+import com.resume.model.competence.Competence;
+import com.resume.model.competence.CompetenceDco;
+import com.resume.model.competence.CompetenceDto;
+import com.resume.model.experience.Experience;
+import com.resume.model.experience.ExperienceDco;
+import com.resume.model.experience.ExperienceDto;
+import com.resume.model.formation.Formation;
+import com.resume.model.formation.FormationDco;
+import com.resume.model.formation.FormationDto;
+import com.resume.model.location.Location;
+import com.resume.model.location.LocationDco;
+import com.resume.model.location.LocationDto;
+import com.resume.model.organisation.Organisation;
+import com.resume.model.organisation.OrganisationDco;
+import com.resume.model.organisation.OrganisationDto;
+import com.resume.model.project.Project;
+import com.resume.model.project.ProjectDco;
+import com.resume.model.project.ProjectDto;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;

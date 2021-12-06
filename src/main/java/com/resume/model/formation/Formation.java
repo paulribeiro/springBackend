@@ -1,41 +1,47 @@
-package com.resume.dto;
+package com.resume.model.formation;
 
+import com.resume.model.location.Location;
 import com.resume.model.enums.FormationTypeEnum;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-public class FormationDto {
+@Entity
+@Table(name = "RES_FORMATION")
+public class Formation {
 
+    @Id
+    @GeneratedValue
     private Integer formationId;
 
+    @Column(nullable = false)
     private String formationTitle;
 
-    private LocationDto location;
+    @ManyToOne
+    @JoinColumn(name = "LOCATION_ID_FK", referencedColumnName = "locationId")
+    private Location location;
 
     private LocalDateTime startDate;
 
     private LocalDateTime endDate;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private FormationTypeEnum formationType;
 
-    public FormationDto() {
+    public Formation() {
     }
 
-    public FormationDto(String formationTitle, LocationDto location, LocalDateTime startDate, LocalDateTime endDate, FormationTypeEnum formationTypeEnum) {
+    public Formation(String formationTitle, Location location, LocalDateTime startDate, LocalDateTime endDate, FormationTypeEnum formationType) {
         this.formationTitle = formationTitle;
         this.location = location;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.formationType = formationTypeEnum;
+        this.formationType = formationType;
     }
 
     public Integer getFormationId() {
         return formationId;
-    }
-
-    public void setFormationId(Integer formationId) {
-        this.formationId = formationId;
     }
 
     public String getFormationTitle() {
@@ -46,11 +52,11 @@ public class FormationDto {
         this.formationTitle = formationTitle;
     }
 
-    public LocationDto getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(LocationDto location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 
@@ -82,7 +88,8 @@ public class FormationDto {
     public String toString(){
         return "Formation{"+
                 "formationId=" + formationId +
-                ", formationTitle='"+ formationTitle +
+                ", formationTitle="+ formationTitle +
+                ", formaionType="+ formationType.toString() +
                 ", location='"+ location +
                 ", startDate='"+ startDate +
                 ", endDate='"+ endDate + '}';

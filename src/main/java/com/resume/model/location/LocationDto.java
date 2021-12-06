@@ -1,6 +1,6 @@
-package com.resume.dco;
+package com.resume.model.location;
 
-public class LocationDco {
+public class LocationDto {
 
     private Integer locationId;
 
@@ -14,7 +14,10 @@ public class LocationDco {
 
     private String country;
 
-    public LocationDco(Integer locationId, String number, String street, String city, String zipCode, String country) {
+    public LocationDto() {
+    }
+
+    public LocationDto(Integer locationId, String number, String street, String city, String zipCode, String country) {
         this.locationId = locationId;
         this.number = number;
         this.street = street;
@@ -23,15 +26,8 @@ public class LocationDco {
         this.country = country;
     }
 
-    public LocationDco(String number, String street, String city, String zipCode, String country) {
-        this.number = number;
-        this.street = street;
-        this.city = city;
-        this.zipCode = zipCode;
-        this.country = country;
-    }
-
-    public LocationDco() {
+    public LocationDto(Integer locationId) {
+        this.locationId = locationId;
     }
 
     public Integer getLocationId() {
@@ -79,4 +75,16 @@ public class LocationDco {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "id=" + locationId +
+                ", number='" + number +
+                ", street=" + street +
+                ", city=" + city +
+                ", zipCode=" + zipCode +
+                ", country=" + country +'}';
+    }
+
 }

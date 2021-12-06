@@ -2,10 +2,10 @@ package com.resume.web.serviceImpl;
 
 import com.resume.Services.IFormationService;
 import com.resume.converter.ConverterHelper;
-import com.resume.dco.FormationDco;
-import com.resume.dto.FormationDto;
-import com.resume.model.Formation;
-import com.resume.model.Location;
+import com.resume.model.formation.FormationDco;
+import com.resume.model.formation.FormationDto;
+import com.resume.model.formation.Formation;
+import com.resume.model.location.Location;
 import com.resume.model.enums.FormationTypeEnum;
 import com.resume.repository.FormationRepository;
 import com.resume.repository.LocationRepository;

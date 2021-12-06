@@ -2,11 +2,11 @@ package com.resume.web.serviceImpl;
 
 import com.resume.Services.IExperienceService;
 import com.resume.converter.ConverterHelper;
-import com.resume.dco.ExperienceDco;
-import com.resume.dto.ExperienceDto;
-import com.resume.model.Experience;
-import com.resume.model.Location;
-import com.resume.model.Organisation;
+import com.resume.model.experience.ExperienceDco;
+import com.resume.model.experience.ExperienceDto;
+import com.resume.model.experience.Experience;
+import com.resume.model.location.Location;
+import com.resume.model.organisation.Organisation;
 import com.resume.model.enums.ExperienceTypeEnum;
 import com.resume.repository.ExperienceRepository;
 import com.resume.repository.LocationRepository;

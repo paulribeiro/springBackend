@@ -1,6 +1,6 @@
 package com.resume.repository;
 
-import com.resume.model.Experience;
+import com.resume.model.experience.Experience;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

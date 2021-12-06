@@ -1,8 +1,8 @@
 package com.resume.Services;
 
-import com.resume.dco.LocationDco;
-import com.resume.dto.LocationDto;
-import com.resume.model.Location;
+import com.resume.model.location.LocationDco;
+import com.resume.model.location.LocationDto;
+import com.resume.model.location.Location;
 
 import java.util.List;
 

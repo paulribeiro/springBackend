@@ -1,7 +1,7 @@
 package com.resume.Services;
 
-import com.resume.dco.ExperienceDco;
-import com.resume.dto.ExperienceDto;
+import com.resume.model.experience.ExperienceDco;
+import com.resume.model.experience.ExperienceDto;
 
 import java.util.List;
 

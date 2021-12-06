@@ -1,46 +1,35 @@
-package com.resume.model;
+package com.resume.model.organisation;
 
-import org.hibernate.validator.constraints.Length;
+public class OrganisationDto {
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "RES_ORGANISATION")
-public class Organisation {
-
-    @Id
-    @GeneratedValue
     private Integer organisationId;
 
-    @Column(nullable = false)
-    @Length(min=1, message = "le nom de l'organisation doit comporter au moins un caractère.")
     private String organisationName;
 
-    @Length(min=1, message = "L'adresse du logo doit comporter au moins 1 caractère.")
-    @Length(max=2000)
     private String logoAddress;
 
-    //constructeur par défaut
-    public Organisation() {
+    public OrganisationDto() {
     }
 
-    public Organisation(Integer organisationId, String organisationName, String logoAddress) {
-        this.organisationId = organisationId;
+    public OrganisationDto(String organisationName, String logoAddress) {
         this.organisationName = organisationName;
         this.logoAddress = logoAddress;
     }
 
-    public Organisation(String organisationName, String logoAddress) {
-        this.organisationName = organisationName;
-        this.logoAddress = logoAddress;
+    public OrganisationDto(Integer organisationId) {
+        this.organisationId = organisationId;
     }
 
-    public Organisation(Integer organisationId) {
-        this.organisationId = organisationId;
+    public OrganisationDto(String organisationName) {
+        this.organisationName = organisationName;
     }
 
     public Integer getOrganisationId() {
         return organisationId;
+    }
+
+    public void setOrganisationId(Integer organisationId) {
+        this.organisationId = organisationId;
     }
 
     public String getOrganisationName() {

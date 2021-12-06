@@ -1,7 +1,9 @@
-package com.resume.model;
+package com.resume.model.project;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.resume.model.competence.Competence;
 import com.resume.model.enums.ProjectTypeEnum;
+import com.resume.model.experience.Experience;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;

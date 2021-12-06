@@ -1,4 +1,4 @@
-package com.resume.dco;
+package com.resume.model.organisation;
 
 public class OrganisationDco {
 

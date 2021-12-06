@@ -1,4 +1,4 @@
-package com.resume.dco;
+package com.resume.model.project;
 
 import com.resume.model.enums.ProjectTypeEnum;
 import com.resume.validator.interfaces.ValueOfEnum;

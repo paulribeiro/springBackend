@@ -1,7 +1,7 @@
 package com.resume.Services;
 
-import com.resume.dco.ProjectDco;
-import com.resume.dto.ProjectDto;
+import com.resume.model.project.ProjectDco;
+import com.resume.model.project.ProjectDto;
 
 import java.util.List;
 

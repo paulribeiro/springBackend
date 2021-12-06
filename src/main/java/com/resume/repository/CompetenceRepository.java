@@ -1,6 +1,6 @@
 package com.resume.repository;
 
-import com.resume.model.Competence;
+import com.resume.model.competence.Competence;
 import com.resume.model.enums.CompetenceTypeEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

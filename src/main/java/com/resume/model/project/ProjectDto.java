@@ -1,6 +1,8 @@
-package com.resume.dto;
+package com.resume.model.project;
 
+import com.resume.model.competence.CompetenceDto;
 import com.resume.model.enums.ProjectTypeEnum;
+import com.resume.model.experience.ExperienceDto;
 
 import java.util.Set;
 

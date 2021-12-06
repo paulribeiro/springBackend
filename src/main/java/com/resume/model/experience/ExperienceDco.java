@@ -1,4 +1,4 @@
-package com.resume.dco;
+package com.resume.model.experience;
 
 import com.resume.model.enums.ExperienceTypeEnum;
 import com.resume.validator.interfaces.ValueOfEnum;

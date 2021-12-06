@@ -1,10 +1,9 @@
-package com.resume.dco;
+package com.resume.model.formation;
 
 import com.resume.model.enums.FormationTypeEnum;
 import com.resume.validator.interfaces.ValueOfEnum;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class FormationDco {
 

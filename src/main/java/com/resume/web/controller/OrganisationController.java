@@ -2,9 +2,9 @@ package com.resume.web.controller;
 
 import com.resume.Services.IExperienceService;
 import com.resume.Services.IOrganisationService;
-import com.resume.dto.ExperienceDto;
-import com.resume.dto.OrganisationDto;
-import com.resume.model.Organisation;
+import com.resume.model.experience.ExperienceDto;
+import com.resume.model.organisation.OrganisationDto;
+import com.resume.model.organisation.Organisation;
 import com.resume.web.exceptions.NoContentException;
 import com.resume.web.exceptions.UnexpectedElementException;
 import io.swagger.annotations.ApiOperation;

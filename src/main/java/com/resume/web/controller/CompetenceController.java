@@ -1,8 +1,8 @@
 package com.resume.web.controller;
 
 import com.resume.converter.ConverterHelper;
-import com.resume.dco.CompetenceDco;
-import com.resume.dto.CompetenceDto;
+import com.resume.model.competence.CompetenceDco;
+import com.resume.model.competence.CompetenceDto;
 import com.resume.model.enums.CompetenceTypeEnum;
 import com.resume.web.exceptions.NoContentException;
 import com.resume.web.exceptions.UnexpectedElementException;

@@ -1,7 +1,7 @@
 package com.resume.Services;
 
-import com.resume.dto.CompetenceDto;
-import com.resume.model.Competence;
+import com.resume.model.competence.CompetenceDto;
+import com.resume.model.competence.Competence;
 import com.resume.model.enums.CompetenceTypeEnum;
 
 import java.util.List;

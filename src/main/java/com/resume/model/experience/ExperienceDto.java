@@ -1,5 +1,7 @@
-package com.resume.dto;
+package com.resume.model.experience;
 
+import com.resume.model.location.LocationDto;
+import com.resume.model.organisation.OrganisationDto;
 import com.resume.model.enums.ExperienceTypeEnum;
 
 import java.util.Date;

@@ -1,9 +1,9 @@
-package com.resume.dco;
+package com.resume.model.competence;
 
 import com.resume.model.enums.CompetenceEvaluationEnum;
 import com.resume.model.enums.CompetenceTypeEnum;
 
-public class CompetenceDco {
+public class CompetenceDto {
 
     private Integer competenceId;
 
@@ -15,26 +15,18 @@ public class CompetenceDco {
 
     private CompetenceTypeEnum competenceTypeEnum;
 
-    public CompetenceDco(Integer competenceId, CompetenceEvaluationEnum evaluation, String competenceTitle, String competenceDescription, CompetenceTypeEnum competenceTypeEnum) {
-        this.competenceId = competenceId;
-        this.evaluation = evaluation;
-        this.competenceDescription = competenceDescription;
-        this.competenceTitle = competenceTitle;
-        this.competenceTypeEnum = competenceTypeEnum;
+    public CompetenceDto() {
     }
 
-    public CompetenceDco(CompetenceEvaluationEnum evaluation, String competenceTitle, String competenceDescription, CompetenceTypeEnum competenceTypeEnum) {
+    public CompetenceDto(CompetenceEvaluationEnum evaluation, String competenceTitle, String competenceDescription, CompetenceTypeEnum competenceTypeEnum) {
         this.evaluation = evaluation;
         this.competenceTitle = competenceTitle;
-        this.competenceDescription = competenceDescription;
         this.competenceTypeEnum = competenceTypeEnum;
+        this.competenceDescription = competenceDescription;
     }
 
     public Integer getCompetenceId() {
         return competenceId;
-    }
-
-    public CompetenceDco() {
     }
 
     public void setCompetenceId(Integer competenceId) {
@@ -72,4 +64,15 @@ public class CompetenceDco {
     public void setCompetenceDescription(String competenceDescription) {
         this.competenceDescription = competenceDescription;
     }
+
+    @Override
+    public String toString(){
+        return "Competence{"+
+                "competenceId=" + competenceId +
+                ", evaluation='"+ evaluation +
+                ", competenceTitle='"+ competenceTitle +
+                ", competenceDescription='"+ competenceDescription +
+                ", competenceType='"+ competenceTypeEnum + '}';
+    }
+
 }

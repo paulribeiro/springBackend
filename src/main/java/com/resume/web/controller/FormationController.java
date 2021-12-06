@@ -1,7 +1,7 @@
 package com.resume.web.controller;
 
-import com.resume.dco.FormationDco;
-import com.resume.dto.FormationDto;
+import com.resume.model.formation.FormationDco;
+import com.resume.model.formation.FormationDto;
 import com.resume.web.exceptions.NoContentException;
 import com.resume.web.exceptions.UnexpectedElementException;
 import com.resume.web.serviceImpl.FormationServiceImpl;

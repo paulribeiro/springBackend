@@ -2,9 +2,9 @@ package com.resume.web.serviceImpl;
 
 import com.resume.Services.ILocationService;
 import com.resume.converter.ConverterHelper;
-import com.resume.dco.LocationDco;
-import com.resume.dto.LocationDto;
-import com.resume.model.Location;
+import com.resume.model.location.LocationDco;
+import com.resume.model.location.LocationDto;
+import com.resume.model.location.Location;
 import com.resume.repository.LocationRepository;
 import org.springframework.stereotype.Service;
 

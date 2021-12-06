@@ -1,6 +1,7 @@
-package com.resume.model;
+package com.resume.model.competence;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.resume.model.project.Project;
 import com.resume.model.enums.CompetenceEvaluationEnum;
 import com.resume.model.enums.CompetenceTypeEnum;
 

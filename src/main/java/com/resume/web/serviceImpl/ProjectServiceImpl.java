@@ -2,11 +2,11 @@ package com.resume.web.serviceImpl;
 
 import com.resume.Services.IProjectService;
 import com.resume.converter.ConverterHelper;
-import com.resume.dco.ProjectDco;
-import com.resume.dto.ProjectDto;
-import com.resume.model.Competence;
-import com.resume.model.Experience;
-import com.resume.model.Project;
+import com.resume.model.project.ProjectDco;
+import com.resume.model.project.ProjectDto;
+import com.resume.model.competence.Competence;
+import com.resume.model.experience.Experience;
+import com.resume.model.project.Project;
 import com.resume.model.enums.ProjectTypeEnum;
 import com.resume.repository.CompetenceRepository;
 import com.resume.repository.ExperienceRepository;

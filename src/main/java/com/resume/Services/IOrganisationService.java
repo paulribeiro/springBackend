@@ -1,7 +1,7 @@
 package com.resume.Services;
 
-import com.resume.dto.OrganisationDto;
-import com.resume.model.Organisation;
+import com.resume.model.organisation.OrganisationDto;
+import com.resume.model.organisation.Organisation;
 
 import java.util.List;
 

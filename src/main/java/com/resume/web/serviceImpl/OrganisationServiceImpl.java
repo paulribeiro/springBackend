@@ -2,8 +2,8 @@ package com.resume.web.serviceImpl;
 
 import com.resume.Services.IOrganisationService;
 import com.resume.converter.ConverterHelper;
-import com.resume.dto.OrganisationDto;
-import com.resume.model.Organisation;
+import com.resume.model.organisation.OrganisationDto;
+import com.resume.model.organisation.Organisation;
 import com.resume.repository.OrganisationRepository;
 import org.springframework.stereotype.Service;
 

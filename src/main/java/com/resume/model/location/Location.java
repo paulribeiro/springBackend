@@ -1,4 +1,4 @@
-package com.resume.model;
+package com.resume.model.location;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

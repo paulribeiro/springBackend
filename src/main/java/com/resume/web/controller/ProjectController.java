@@ -1,8 +1,8 @@
 package com.resume.web.controller;
 
 import com.resume.Services.IProjectService;
-import com.resume.dco.ProjectDco;
-import com.resume.dto.ProjectDto;
+import com.resume.model.project.ProjectDco;
+import com.resume.model.project.ProjectDto;
 import com.resume.web.exceptions.NoContentException;
 import com.resume.web.exceptions.UnexpectedElementException;
 import io.swagger.annotations.ApiOperation;

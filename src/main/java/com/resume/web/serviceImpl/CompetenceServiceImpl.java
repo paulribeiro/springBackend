@@ -2,8 +2,8 @@ package com.resume.web.serviceImpl;
 
 import com.resume.Services.ICompetenceService;
 import com.resume.converter.ConverterHelper;
-import com.resume.dto.CompetenceDto;
-import com.resume.model.Competence;
+import com.resume.model.competence.CompetenceDto;
+import com.resume.model.competence.Competence;
 import com.resume.model.enums.CompetenceTypeEnum;
 import com.resume.repository.CompetenceRepository;
 import org.springframework.stereotype.Service;

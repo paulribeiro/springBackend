@@ -1,6 +1,6 @@
 package com.resume.repository;
 
-import com.resume.model.Formation;
+import com.resume.model.formation.Formation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

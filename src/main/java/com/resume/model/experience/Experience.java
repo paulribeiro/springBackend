@@ -1,5 +1,7 @@
-package com.resume.model;
+package com.resume.model.experience;
 
+import com.resume.model.location.Location;
+import com.resume.model.organisation.Organisation;
 import com.resume.model.enums.ExperienceTypeEnum;
 import org.hibernate.validator.constraints.Length;
 
