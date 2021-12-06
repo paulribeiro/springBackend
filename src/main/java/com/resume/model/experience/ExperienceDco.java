@@ -1,7 +1,7 @@
 package com.resume.model.experience;
 
 import com.resume.model.enums.ExperienceTypeEnum;
-import com.resume.validator.interfaces.ValueOfEnum;
+import com.resume.model.enums.validator.ValueOfEnum;
 
 import java.util.Date;
 

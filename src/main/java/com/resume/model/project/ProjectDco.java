@@ -1,7 +1,7 @@
 package com.resume.model.project;
 
 import com.resume.model.enums.ProjectTypeEnum;
-import com.resume.validator.interfaces.ValueOfEnum;
+import com.resume.model.enums.validator.ValueOfEnum;
 
 import java.util.Set;
 

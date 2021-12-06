@@ -1,7 +1,7 @@
 package com.resume.model.formation;
 
 import com.resume.model.enums.FormationTypeEnum;
-import com.resume.validator.interfaces.ValueOfEnum;
+import com.resume.model.enums.validator.ValueOfEnum;
 
 import java.time.LocalDateTime;
 
