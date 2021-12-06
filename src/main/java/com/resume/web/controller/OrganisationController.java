@@ -6,8 +6,7 @@ import com.resume.dto.ExperienceDto;
 import com.resume.dto.OrganisationDto;
 import com.resume.model.Organisation;
 import com.resume.web.exceptions.NoContentException;
-import com.resume.web.exceptions.UnexpectedCompetenceException;
-import com.resume.web.exceptions.UnexpectedOrganisationException;
+import com.resume.web.exceptions.UnexpectedElementException;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +78,7 @@ public class OrganisationController {
 
         if (currentOrganisation == null) {
             logger.error("Unable to update. Organisation with id {} not found.", organisationId);
-            throw new UnexpectedOrganisationException("Unable to upate Organisation with id " + organisationId + " not found.");
+            throw new UnexpectedElementException("Unable to upate Organisation with id " + organisationId + " not found.");
         }
         currentOrganisation.setOrganisationName(organisationName);
 
@@ -164,7 +163,7 @@ public class OrganisationController {
         Integer organisationDeletedId  = organisationService.deleteOrganisation(organisationId);
 
         if(organisationDeletedId == 0) {
-            throw new UnexpectedCompetenceException("Unable to delete. Organisation with id " + organisationId + " not found.");
+            throw new UnexpectedElementException("Unable to delete. Organisation with id " + organisationId + " not found.");
         } else {
             try {
                 Path path = Paths.get(DIR_TO_UPLOAD + organisationToDelete.getLogoAddress());

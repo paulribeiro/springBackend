@@ -9,8 +9,7 @@ import com.resume.dto.ExperienceDto;
 import com.resume.dto.FormationDto;
 import com.resume.dto.LocationDto;
 import com.resume.web.exceptions.NoContentException;
-import com.resume.web.exceptions.UnexpectedCompetenceException;
-import com.resume.web.exceptions.UnexpectedLocationException;
+import com.resume.web.exceptions.UnexpectedElementException;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,7 +77,7 @@ public class LocationController {
 
         if (currentLocation == null) {
             logger.error("Unable to update. Location with id {} not found.", locationDco.getLocationId());
-            throw new UnexpectedLocationException("Unable to update. Location with id " + locationDco.getLocationId() + " not found.");
+            throw new UnexpectedElementException("Unable to update. Location with id " + locationDco.getLocationId() + " not found.");
         }
 
         return ResponseEntity.ok().body(currentLocation);
@@ -92,7 +91,7 @@ public class LocationController {
         LocationDto locationToDelete = locationService.getLocationbyId(locationId);
 
         if(locationToDelete == null) {
-            throw new UnexpectedCompetenceException("Unable to delete. Location with id " + locationId + " not found.");
+            throw new UnexpectedElementException("Unable to delete. Location with id " + locationId + " not found.");
         }
 
         List<FormationDto> formationLinkedToLocation = formationService.getFormationLinkedToLocation(locationToDelete.getLocationId());
@@ -117,7 +116,7 @@ public class LocationController {
 
         Integer deletedLocation  = locationService.deleteLocation(locationId);
         if(deletedLocation == 0) {
-            throw new UnexpectedCompetenceException("Unable to delete. Location with id " + locationId + " not found.");
+            throw new UnexpectedElementException("Unable to delete. Location with id " + locationId + " not found.");
         }
         return ResponseEntity.ok().body(locationToDelete);
     }

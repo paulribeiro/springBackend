@@ -4,9 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class UnexpectedExperienceException extends RuntimeException {
+public class UnexpectedElementException extends RuntimeException {
 
-    public UnexpectedExperienceException(String s) {
+    public UnexpectedElementException(String s) {
         super(s);
     }
 }

@@ -11,7 +11,7 @@ import com.resume.model.enums.ProjectTypeEnum;
 import com.resume.repository.CompetenceRepository;
 import com.resume.repository.ExperienceRepository;
 import com.resume.repository.ProjectRepository;
-import com.resume.web.exceptions.UnexpectedCompetenceException;
+import com.resume.web.exceptions.UnexpectedElementException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -55,7 +55,7 @@ public class ProjectServiceImpl implements IProjectService {
                 competences.add(competence);
             } else {
                 logger.error("Unable to create project with id {} due to unknown competence. Competence with id {} not found.", project.getProjectId(), competenceId);
-                throw new UnexpectedCompetenceException("Unable to create Project due to missing Competence. Competence with id " + competenceId + " not found.");
+                throw new UnexpectedElementException("Unable to create Project due to missing Competence. Competence with id " + competenceId + " not found.");
             }
         }
 

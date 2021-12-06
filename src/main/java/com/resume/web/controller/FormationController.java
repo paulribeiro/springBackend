@@ -3,8 +3,7 @@ package com.resume.web.controller;
 import com.resume.dco.FormationDco;
 import com.resume.dto.FormationDto;
 import com.resume.web.exceptions.NoContentException;
-import com.resume.web.exceptions.UnexpectedCompetenceException;
-import com.resume.web.exceptions.UnexpectedFormationException;
+import com.resume.web.exceptions.UnexpectedElementException;
 import com.resume.web.serviceImpl.FormationServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -49,7 +48,7 @@ public class FormationController {
 
         if (updatedFormation == null) {
             logger.error("Unable to update. Formation with id {} not found.", formationDco.getFormationId());
-            throw new UnexpectedFormationException("Unable to update. Organisation with id " + formationDco.getFormationId() + " not found.");
+            throw new UnexpectedElementException("Unable to update. Organisation with id " + formationDco.getFormationId() + " not found.");
         }
 
         return ResponseEntity.ok().body(updatedFormation);
@@ -75,13 +74,13 @@ public class FormationController {
         FormationDto formationToDelete = formationService.getFormation(formationId);
 
         if(formationToDelete == null) {
-            throw new UnexpectedCompetenceException("Unable to delete. Formation with id " + formationId + " not found.");
+            throw new UnexpectedElementException("Unable to delete. Formation with id " + formationId + " not found.");
         }
 
         Integer deletedFormation  = formationService.deleteFormation(formationId);
 
         if(deletedFormation == 0) {
-            throw new UnexpectedCompetenceException("Unable to delete. Formation with id " + formationId + " not found.");
+            throw new UnexpectedElementException("Unable to delete. Formation with id " + formationId + " not found.");
         }
         return ResponseEntity.ok().body(formationToDelete);
     }

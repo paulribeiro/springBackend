@@ -6,8 +6,7 @@ import com.resume.dco.ExperienceDco;
 import com.resume.dto.ExperienceDto;
 import com.resume.dto.ProjectDto;
 import com.resume.web.exceptions.NoContentException;
-import com.resume.web.exceptions.UnexpectedCompetenceException;
-import com.resume.web.exceptions.UnexpectedExperienceException;
+import com.resume.web.exceptions.UnexpectedElementException;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,7 +68,7 @@ public class ExperienceController {
 
         if (updatedExperience == null) {
             logger.error("Unable to update. Experience with id {} not found.", experienceDco.getExperienceId());
-            throw new UnexpectedExperienceException("Unable to upate. Experience with id " + experienceDco.getExperienceId() + " not found.");
+            throw new UnexpectedElementException("Unable to upate. Experience with id " + experienceDco.getExperienceId() + " not found.");
         }
 
         return ResponseEntity.ok().body(updatedExperience);
@@ -83,7 +82,7 @@ public class ExperienceController {
         ExperienceDto experienceToDelete = experienceService.getExperience(experienceId);
 
         if(experienceToDelete == null) {
-            throw new UnexpectedCompetenceException("Unable to delete. Experience with id " + experienceId + " not found.");
+            throw new UnexpectedElementException("Unable to delete. Experience with id " + experienceId + " not found.");
         }
 
         List<ProjectDto> projectLinkedToExperience = projectService.getProjectLinkedToExperience(experienceToDelete.getExperienceId());
@@ -98,9 +97,14 @@ public class ExperienceController {
 
         Integer deletedExperience  = experienceService.deleteExperience(experienceId);
         if(deletedExperience == 0) {
-            throw new UnexpectedCompetenceException("Unable to delete. Experience with id " + experienceId + " not found.");
+            throw new UnexpectedElementException("Unable to delete. Experience with id " + experienceId + " not found.");
         }
         return ResponseEntity.ok().body(experienceToDelete);
     }
 
 }
+
+
+// TODO :
+// validate formular
+// try to make formular more abstract

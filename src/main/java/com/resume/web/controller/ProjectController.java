@@ -4,7 +4,7 @@ import com.resume.Services.IProjectService;
 import com.resume.dco.ProjectDco;
 import com.resume.dto.ProjectDto;
 import com.resume.web.exceptions.NoContentException;
-import com.resume.web.exceptions.UnexpectedProjectException;
+import com.resume.web.exceptions.UnexpectedElementException;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +62,7 @@ public class ProjectController {
 
         if (currentProject == null) {
             logger.error("Unable to update. Project with id {} not found.", projectDco.getProjectId());
-            throw new UnexpectedProjectException("Unable to update. Project with id " + projectDco.getProjectId() + " not found.");
+            throw new UnexpectedElementException("Unable to update. Project with id " + projectDco.getProjectId() + " not found.");
         }
 
         return ResponseEntity.ok().body(projectService.putProject(projectDco));
@@ -78,10 +78,10 @@ public class ProjectController {
         if(projectToDelete != null) {
             Integer deletedProjectId = projectService.deleteProject(projectId);
             if (deletedProjectId == 0) {
-                throw new UnexpectedProjectException("Unable to delete. Project with id " + projectId + " not found.");
+                throw new UnexpectedElementException("Unable to delete. Project with id " + projectId + " not found.");
             }
         } else {
-            throw new UnexpectedProjectException("Unable to delete. Project with id " + projectId + " not found.");
+            throw new UnexpectedElementException("Unable to delete. Project with id " + projectId + " not found.");
         }
         return ResponseEntity.ok().body(projectToDelete);
     }

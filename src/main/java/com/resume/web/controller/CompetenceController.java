@@ -5,7 +5,7 @@ import com.resume.dco.CompetenceDco;
 import com.resume.dto.CompetenceDto;
 import com.resume.model.enums.CompetenceTypeEnum;
 import com.resume.web.exceptions.NoContentException;
-import com.resume.web.exceptions.UnexpectedCompetenceException;
+import com.resume.web.exceptions.UnexpectedElementException;
 import com.resume.web.serviceImpl.CompetenceServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -70,7 +70,7 @@ public class CompetenceController {
 
         if (currentCompetence == null) {
             logger.error("Unable to update. competence with id {} not found.", competenceDco.getCompetenceId());
-            throw new UnexpectedCompetenceException("Unable to upate. Competence with id " + competenceDco.getCompetenceId() + " not found.");
+            throw new UnexpectedElementException("Unable to upate. Competence with id " + competenceDco.getCompetenceId() + " not found.");
         }
 
         currentCompetence.setCompetenceTitle(competenceDco.getCompetenceTitle());
@@ -91,10 +91,10 @@ public class CompetenceController {
         if(competenceToDelete != null) {
             Integer deletedCompetenceId = competenceService.deleteCompetence(competenceId);
             if (deletedCompetenceId == 0) {
-                throw new UnexpectedCompetenceException("Unable to delete. Competence with id " + competenceId + " not found.");
+                throw new UnexpectedElementException("Unable to delete. Competence with id " + competenceId + " not found.");
             }
         } else {
-            throw new UnexpectedCompetenceException("Unable to delete. Competence with id " + competenceId + " not found.");
+            throw new UnexpectedElementException("Unable to delete. Competence with id " + competenceId + " not found.");
         }
         return ResponseEntity.ok().body(competenceToDelete);
     }
